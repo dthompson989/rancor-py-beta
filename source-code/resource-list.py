@@ -9,6 +9,8 @@ session = boto3.Session(profile_name='rancor-python')
 def list_instances():
     ec2 = session.resource('ec2')
 
+    print('EC2:')
+
     for i in ec2.instances.all():
         print(', '.join((
             i.id,
@@ -20,11 +22,14 @@ def list_instances():
     return
 
 
-# The basic design flow should be:
-# 1: main function
-# 2: function to check resource state
-# 3: function to get instances
-# 4: function to start/stop instances
+''' The basic design flow should be:
+    1: main function
+    2: function to check resource state
+    3: function to get instances
+    4: function to start/stop instances
+    
+    * EC2, DynamoDB, S3, RDS, Lambda, SNS, Glacier
+'''
 
 if __name__ == '__main__':
     list_instances()
