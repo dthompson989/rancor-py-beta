@@ -22,13 +22,17 @@ def list_instances():
     return
 
 
-''' The basic design flow should be:
+''' 
+    The basic design flow should be:
     1: main function
     2: function to check resource state
     3: function to get instances
     4: function to start/stop instances
     
     * EC2, DynamoDB, S3, RDS, Lambda, SNS, Glacier
+    
+    IDEAS:
+        - Automatically create entire AWS environment (ie create anything that doesn't already exist)
 '''
 
 if __name__ == '__main__':
