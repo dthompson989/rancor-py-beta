@@ -2,10 +2,19 @@
 import boto3
 import click
 from botocore.exceptions import ClientError
+from pathlib import Path
+import mimetypes
 
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
 s3 = boto3.resource('s3')
+path = '/Users/thompsdm/Documents/Code/Python AWS Beta/rancor-py-beta/david-m-thompson-website/'
+
+
+def push_website_content(bucket, key):
+    content_type = mimetypes.guess_type(key)[0] or 'text/plain'
+    bucket.upload_file(path, key, ExtraArgs={'ContentType': content_type})
+    return
 
 
 # Setup CLI commands and params
@@ -73,6 +82,24 @@ def create_bucket(bucket, public, website):
         })
 
     return
+
+
+@cli.command('code-sync')
+@click.argument('bucket')
+def code_sync(bucket):
+    """Push code changes from local repo to AWS S3"""
+    s3_bucket = s3.Bucket(bucket)
+
+    root = Path(path).expanduser().resolve()
+
+    def handle_directory(target):
+        for p in target.iterdir():
+            if p.is_dir():
+                handle_directory(p)
+            if p.is_file():
+                push_website_content(s3_bucket, str(p))
+
+    handle_directory(root)
 
 
 if __name__ == '__main__':
