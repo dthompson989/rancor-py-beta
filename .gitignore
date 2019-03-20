@@ -105,3 +105,6 @@ venv.bak/
 
 #pipenv
 Pipfile.lock
+
+# ds_file
+.DS_Store
