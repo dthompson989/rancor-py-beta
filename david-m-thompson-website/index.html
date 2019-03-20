@@ -1,0 +1,31 @@
+<html>
+<head>
+    <style>
+    .main-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 10px;
+    }
+    </style>
+</head>
+<script>
+function betaFunction() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("my-demo").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "https://cephbv4jp1.execute-api.us-east-1.amazonaws.com/prod/myBetaFunction", true);
+    xhttp.send();
+}
+</script>
+<body>
+    <div class="main-div">
+        <h1>Hello<span id="my-demo"></span>!</h1>
+        <button onclick="betaFunction()">Click me</button><br>
+        <img src="img/yennefer-witcher-3.jpeg">
+    </div>
+</body>
+</html>

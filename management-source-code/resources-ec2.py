@@ -1,5 +1,6 @@
 # Using Boto3 to interact with AWS
 import boto3
+import click
 from botocore.exceptions import ClientError
 
 # Python user: rancor-python
