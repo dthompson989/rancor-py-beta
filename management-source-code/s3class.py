@@ -7,10 +7,10 @@ from botocore.exceptions import ClientError
 class S3Manager:
     """Manage S3 Buckets"""
 
-    def __inti__(self, session):
+    def __init__(self, session):
         """Create bucket manager object"""
         self.session = session
-        self.s3 = session.resource('s3')
+        self.s3 = self.session.resource('s3')
 
     def all_buckets(self):
         """Return a list of all buckets"""
@@ -74,7 +74,6 @@ class S3Manager:
 
         # pathlib is used to handle differences in unix/linux/windows file systems
         root = Path(path).expanduser().resolve()
-        print('Syncing {} to AWS S3 Bucket {} . . . '.format(path, bucket))
 
         # Recursive function to traverse through a directory and
         def handle_directory(target):

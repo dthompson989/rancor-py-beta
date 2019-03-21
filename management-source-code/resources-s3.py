@@ -2,19 +2,18 @@
 """View and Deploy websites with AWS"""
 import click
 import boto3
-from S3Class import S3Manager
+from s3class import S3Manager
 
 
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
-s3 = boto3.resource('s3')
 s3_bucket = S3Manager(session)
 
 
 # Setup CLI commands and params
 @click.group()
 def cli():
-    """Automating AWS"""
+    """Deploying to AWS"""
     pass
 
 
@@ -22,7 +21,8 @@ def cli():
 @cli.command('list-buckets')
 def list_buckets():
     """List All S3 Buckets"""
-    s3_bucket.all_buckets()
+    for bucket in s3_bucket.all_buckets():
+        print(bucket)
 
 
 # List the contents of a specific S3 Bucket
@@ -30,7 +30,8 @@ def list_buckets():
 @click.argument('bucket')
 def list_bucket_objects(bucket):
     """List the contents of an S3 bucket"""
-    s3_bucket.all_objects(bucket)
+    for obj in s3_bucket.all_objects(bucket):
+        print(obj)
 
 
 # Create a new S3 bucket
@@ -46,7 +47,7 @@ def create_bucket(bucket, public, website):
     if website:
         s3_bucket.config_website(new_bucket)
 
-    return
+    print('Bucket Created: ' + new_bucket)
 
 
 @cli.command('code-sync')
