@@ -8,10 +8,9 @@ import mimetypes
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
 s3 = boto3.resource('s3')
-path = '/Users/thompsdm/Documents/Code/Python AWS Beta/rancor-py-beta/david-m-thompson-website/'
 
 
-def push_website_content(bucket, key):
+def push_website_content(bucket, path, key):
     content_type = mimetypes.guess_type(key)[0] or 'text/plain'
     bucket.upload_file(path, key, ExtraArgs={'ContentType': content_type})
     return
@@ -85,19 +84,22 @@ def create_bucket(bucket, public, website):
 
 
 @cli.command('code-sync')
+@click.argument('path', type=click.Path(exists=True))
 @click.argument('bucket')
-def code_sync(bucket):
+def code_sync(path, bucket):
     """Push code changes from local repo to AWS S3"""
     s3_bucket = s3.Bucket(bucket)
 
+    # pathlib is used to handle differences in unix/linux/windows file systems
     root = Path(path).expanduser().resolve()
 
+    # Recursive function to traverse through a directory and
     def handle_directory(target):
         for p in target.iterdir():
             if p.is_dir():
                 handle_directory(p)
             if p.is_file():
-                push_website_content(s3_bucket, str(p))
+                push_website_content(s3_bucket, str(p), str(p.relative_to(root)))
 
     handle_directory(root)
 
