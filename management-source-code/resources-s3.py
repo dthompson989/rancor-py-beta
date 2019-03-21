@@ -1,9 +1,10 @@
-# Using Boto3 to interact with AWS
-import boto3
-import click
-from botocore.exceptions import ClientError
+#!usr/bin/python
+"""View and Deploy websites with AWS"""
 from pathlib import Path
 import mimetypes
+import click
+import boto3
+from botocore.exceptions import ClientError
 
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
@@ -23,6 +24,7 @@ def cli():
     pass
 
 
+# List all S3 Buckets
 @cli.command('list-buckets')
 def list_buckets():
     """List All S3 Buckets"""
@@ -30,6 +32,7 @@ def list_buckets():
         print(bucket)
 
 
+# List the contents of a specific S3 Bucket
 @cli.command('list-bucket-objects')
 @click.argument('bucket')
 def list_bucket_objects(bucket):
@@ -38,6 +41,7 @@ def list_bucket_objects(bucket):
         print(obj)
 
 
+# Create a new S3 bucket
 @cli.command('create-bucket')
 @click.argument('bucket')
 @click.option('--public/--private', default=True)
@@ -92,6 +96,7 @@ def code_sync(path, bucket):
 
     # pathlib is used to handle differences in unix/linux/windows file systems
     root = Path(path).expanduser().resolve()
+    print('Syncing {} to AWS S3 Bucket {} . . . '.format(path, bucket))
 
     # Recursive function to traverse through a directory and
     def handle_directory(target):
@@ -102,7 +107,10 @@ def code_sync(path, bucket):
                 push_website_content(s3_bucket, str(p), str(p.relative_to(root)))
 
     handle_directory(root)
+    print('Code Sync Complete!')
 
 
 if __name__ == '__main__':
     cli()
+
+# todo: polish up readme file; finish up cmd help doc
