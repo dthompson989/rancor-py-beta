@@ -1,20 +1,14 @@
 #!usr/bin/python
 """View and Deploy websites with AWS"""
-from pathlib import Path
-import mimetypes
 import click
 import boto3
-from botocore.exceptions import ClientError
+from S3Class import S3Manager
+
 
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
 s3 = boto3.resource('s3')
-
-
-def push_website_content(bucket, path, key):
-    content_type = mimetypes.guess_type(key)[0] or 'text/plain'
-    bucket.upload_file(path, key, ExtraArgs={'ContentType': content_type})
-    return
+s3_bucket = S3Manager(session)
 
 
 # Setup CLI commands and params
@@ -28,8 +22,7 @@ def cli():
 @cli.command('list-buckets')
 def list_buckets():
     """List All S3 Buckets"""
-    for bucket in s3.buckets.all():
-        print(bucket)
+    s3_bucket.all_buckets()
 
 
 # List the contents of a specific S3 Bucket
@@ -37,8 +30,7 @@ def list_buckets():
 @click.argument('bucket')
 def list_bucket_objects(bucket):
     """List the contents of an S3 bucket"""
-    for obj in s3.Bucket(bucket).objects.all():
-        print(obj)
+    s3_bucket.all_objects(bucket)
 
 
 # Create a new S3 bucket
@@ -48,41 +40,11 @@ def list_bucket_objects(bucket):
 @click.option('--website', is_flag=True)
 def create_bucket(bucket, public, website):
     """Create and configure an S3 bucket"""
-    s3_bucket = None
-    try:
-        s3_bucket = s3.create_bucket(
-            Bucket=bucket,
-            CreateBucketConfiguration={'LocationConstraint': session.region_name}
-        )
-    except ClientError as e:
-        if e.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
-            s3_bucket = s3.Bucket(bucket)
-        else:
-            raise e
-
+    new_bucket = s3_bucket.create_bucket(bucket)
     if public:
-        policy = """{
-            "Version":"2012-10-17",
-	        "Statement":[{
-                "Sid":"PublicReadGetObject",
-	            "Effect":"Allow",
-	            "Principal": "*",
-	            "Action":["s3:GetObject"],
-	            "Resource":["arn:aws:s3:::%s/*"]
-	        }]
-        }""" % s3_bucket.name
-
-        policy = policy.strip()
-
-        pol = s3_bucket.Policy()
-        pol.put(Policy=policy)
-
+        s3_bucket.set_policy(new_bucket)
     if website:
-        ws = s3_bucket.Website()
-        ws.put(WebsiteConfiguration={
-            'ErrorDocument': {'Key': 'error.html'},
-            'IndexDocument': {'Suffix': 'index.html'}
-        })
+        s3_bucket.config_website(new_bucket)
 
     return
 
@@ -92,21 +54,8 @@ def create_bucket(bucket, public, website):
 @click.argument('bucket')
 def code_sync(path, bucket):
     """Push code changes from local repo to AWS S3"""
-    s3_bucket = s3.Bucket(bucket)
-
-    # pathlib is used to handle differences in unix/linux/windows file systems
-    root = Path(path).expanduser().resolve()
     print('Syncing {} to AWS S3 Bucket {} . . . '.format(path, bucket))
-
-    # Recursive function to traverse through a directory and
-    def handle_directory(target):
-        for p in target.iterdir():
-            if p.is_dir():
-                handle_directory(p)
-            if p.is_file():
-                push_website_content(s3_bucket, str(p), str(p.relative_to(root)))
-
-    handle_directory(root)
+    s3_bucket.code_sync(path, bucket)
     print('Code Sync Complete!')
 
 
