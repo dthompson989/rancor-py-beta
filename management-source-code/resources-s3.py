@@ -58,6 +58,7 @@ def code_sync(path, bucket):
     print('Syncing {} to AWS S3 Bucket {} . . . '.format(path, bucket))
     s3_bucket.code_sync(path, bucket)
     print('Code Sync Complete!')
+    print('S3 Endpoint URL: ' + s3_bucket.get_bucket_url(s3_bucket.s3.Bucket(bucket)))
 
 
 if __name__ == '__main__':
