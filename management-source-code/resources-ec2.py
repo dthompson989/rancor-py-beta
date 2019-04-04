@@ -1,56 +1,40 @@
-# Using Boto3 to interact with AWS
-import boto3
+#!usr/bin/python
+"""View and Create S3 buckets and Deploy websites to S3 with click and boto3"""
 import click
-from botocore.exceptions import ClientError
+import boto3
+from ec2class import EC2Manager
+
 
 # Python user: rancor-python
 session = boto3.Session(profile_name='rancor-python')
+ec2_object = EC2Manager(session)
 
 
-# Beta function it list AWS EC2 instances
-def ec2_instances(opt):
-    ec2 = session.resource('ec2')
+# Setup CLI commands and params
+@click.group()
+def cli():
+    """Setting up command line tool"""
+    pass
 
-    print('EC2:')
-    if opt == 'list':
-        for i in ec2.instances.all():
-            print(', '.join((
-                i.id,
-                i.instance_type,
-                i.placement['AvailabilityZone'],
-                i.state['Name'],
-                i.public_dns_name if i.public_dns_name else 'None')))
-    elif opt == 'start':
-        for i in ec2.instances.all():
-            if i.state['Name'] == 'stopped':
-                try:
-                    ec2.start_instances(InstanceIds=[i.id], DryRun=False)
-                    print('Starting {0} . . . '.format(i.id))
-                except ClientError as e:
-                    print(e)
-    elif opt == 'stop':
-        for i in ec2.instances.all():
-            if i.state['Name'] == 'running':
-                try:
-                    ec2.stop_instances(InstanceIds=[i.id], DryRun=False)
-                    print('Stopping {0} . . . '.format(i.id))
-                except ClientError as e:
-                    print(e)
-    else:
-        print('Bad input')
 
-    return
+# List all EC2 Instances
+@cli.command('list-instances')
+def list_buckets():
+    """List All EC2 Instances"""
+    for i in ec2_object.all_instances():
+        print(i)
+
+
+# List the contents of a specific S3 Bucket
+@cli.command('list-bucket-objects')
+@click.argument('bucket')
+def list_bucket_objects(bucket):
+    """List the contents of an S3 bucket"""
+    for obj in ec2_object.all_objects(bucket):
+        print(obj)
 
 
 if __name__ == '__main__':
-    ec2_instances('list')
+    cli()
 
-
-"""
-    * EC2, DynamoDB, S3, RDS, Lambda, SNS, Glacier
-
-    IDEAS:
-        - CLoud formation template
-        - Notify via slack
-        
-"""
+# todo: polish up readme file; finish up cmd help doc

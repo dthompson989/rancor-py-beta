@@ -1,5 +1,5 @@
 #!usr/bin/python
-"""View and Deploy websites with AWS"""
+"""View and Create S3 buckets and Deploy websites to S3 with click and boto3"""
 import click
 import boto3
 from s3class import S3Manager
@@ -13,7 +13,7 @@ s3_bucket = S3Manager(session)
 # Setup CLI commands and params
 @click.group()
 def cli():
-    """Deploying to AWS"""
+    """Setting up command line tool"""
     pass
 
 
