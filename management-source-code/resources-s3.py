@@ -47,18 +47,13 @@ def create_bucket(bucket, public, website):
     if website:
         s3_bucket.config_website(new_bucket)
 
-    print('Bucket Created: ' + new_bucket)
-
 
 @cli.command('code-sync')
 @click.argument('path', type=click.Path(exists=True))
 @click.argument('bucket')
 def code_sync(path, bucket):
     """Push code changes from local repo to AWS S3"""
-    print('Syncing {} to AWS S3 Bucket {} . . . '.format(path, bucket))
     s3_bucket.code_sync(path, bucket)
-    print('Code Sync Complete!')
-    print('S3 Endpoint URL: ' + s3_bucket.get_bucket_url(s3_bucket.s3.Bucket(bucket)))
 
 
 if __name__ == '__main__':
