@@ -2,12 +2,8 @@
 """View and Create S3 buckets and Deploy websites to S3 with click and boto3"""
 import click
 import boto3
-from ec2class import EC2Manager
 
-
-# Python user: rancor-python
-session = boto3.Session(profile_name='rancor-python')
-ec2_object = EC2Manager(session)
+ec2_object = boto3.client('ec2')
 
 
 # Setup CLI commands and params
@@ -17,21 +13,34 @@ def cli():
     pass
 
 
-# List all EC2 Instances
-@cli.command('list-instances')
-def list_buckets():
-    """List All EC2 Instances"""
-    for i in ec2_object.all_instances():
-        print(i)
-
-
 # List the contents of a specific S3 Bucket
-@cli.command('list-bucket-objects')
-@click.argument('bucket')
-def list_bucket_objects(bucket):
-    """List the contents of an S3 bucket"""
-    for obj in ec2_object.all_objects(bucket):
-        print(obj)
+@cli.command('list-instance')
+@click.argument('tag-name')
+@click.argument('tag-value')
+def list_instance(tag_name, tag_value):
+    """List EC2 Instances using tags for filtering"""
+    obj = ec2_object.describe_instances(Filters=[{'Name': tag_name, 'Values': [tag_value]}])
+
+    for reservation in obj["Reservations"]:
+        for instance in reservation["Instances"]:
+            print("-------------------------------------")
+            print("Instance ID: " + instance["InstanceId"])
+            print("Instance Type: " + instance["InstanceType"])
+            print("AMI: " + instance["ImageId"])
+            print("VPC: " + instance["VpcId"])
+            print("Subnet: " + instance["SubnetId"])
+            print("Availability Zone: " + instance["Placement"]["AvailabilityZone"])
+            print("Security Groups: ")
+            for sec_group in instance["SecurityGroups"]:
+                print("    - " + sec_group["GroupName"])
+            print("Root Name: " + instance["RootDeviceName"])
+            print("Root Type: " + instance["RootDeviceType"])
+            print("EBS Optimized: {}".format(instance["EbsOptimized"]))
+            print("Volumes: ")
+            for vol in instance["BlockDeviceMappings"]:
+                print("    - Path: " + vol["DeviceName"])
+                print("    - ID: " + vol["Ebs"]["VolumeId"])
+    print("-------------------------------------")
 
 
 if __name__ == '__main__':

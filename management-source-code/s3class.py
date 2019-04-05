@@ -62,7 +62,7 @@ class S3Manager:
         return s3_bucket
 
     @staticmethod
-    def set_policy(self, bucket):
+    def set_policy(bucket):
         """Set a bucket policy to public"""
         policy = """{
                 "Version":"2012-10-17",

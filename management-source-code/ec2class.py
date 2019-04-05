@@ -1,7 +1,5 @@
 """AWS EC2 Instance Detailed List Class"""
-import boto3
-from botocore.exceptions import ClientError
-import util
+
 
 class EC2Manager:
     """Manage EC2 Instances"""
@@ -11,7 +9,7 @@ class EC2Manager:
         self.session = session
         self.ec2 = self.session.resource('ec2')
 
-    def show_instances(self, instance):
+    def list_instances(self, tag_name, tag_value):
         """Return a detailed list of EC2 instance(s)"""
-        return self.ec2.descibe_instances()
+        return self.ec2.describe_instances(Filters=[{'Name': tag_name, 'Values': [tag_value]}])
         # filter by TAG or Instance ID
