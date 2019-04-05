@@ -1,9 +1,9 @@
 #!usr/bin/python
-"""View and Create S3 buckets and Deploy websites to S3 with click and boto3"""
+"""View detailed information about EC2 Instances with click and boto3"""
 import click
 import boto3
 
-ec2_object = boto3.client('ec2')
+ec2_client = boto3.client('ec2')
 
 
 # Setup CLI commands and params
@@ -19,7 +19,7 @@ def cli():
 @click.argument('tag-value')
 def list_instance(tag_name, tag_value):
     """List EC2 Instances using tags for filtering"""
-    obj = ec2_object.describe_instances(Filters=[{'Name': tag_name, 'Values': [tag_value]}])
+    obj = ec2_client.describe_instances(Filters=[{'Name': tag_name, 'Values': [tag_value]}])
 
     for reservation in obj["Reservations"]:
         for instance in reservation["Instances"]:
