@@ -13,7 +13,7 @@ def cli():
     pass
 
 
-# List the contents of a specific S3 Bucket
+# List the ec2 instances based on tag name and value
 @cli.command('list-instance')
 @click.argument('tag-name')
 @click.argument('tag-value')
