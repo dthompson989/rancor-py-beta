@@ -10,19 +10,19 @@ except ImportError:
 
 def splunk_connect(instance, username, password):
     try:
-        # Create a Service instance and log in 
+        """Create a Service instance and log in"""
         if instance == 'dev':
-            HOST = '10.169.193.61'
+            host = '10.169.193.61'
         elif instance == 'cert':
-            HOST = "cdc4c-loganalysis-splunk-searchheaddatastream.route53.lexis.com"
+            host = "cdc4c-loganalysis-splunk-searchheaddatastream.route53.lexis.com"
         elif instance == 'prod':
-            HOST = "prod-splunk-gui.route53.lexis.com"
+            host = "prod-splunk-gui.route53.lexis.com"
         else:
             print(f'Instance {instance} type not recognized.')
             return None
 
         service = client.connect(
-            host=HOST,
+            host=host,
             port=8089,
             scheme='https',
             username=username,
@@ -42,7 +42,7 @@ def splunk_search(service, query, **kwargs):
         return json_results, job
     else:
         rr = results.ResultsReader(job.preview())
-        row=0
+        row = 0
         resultsdf = pd.DataFrame()
         for res in rr:
             if isinstance(res,list):
@@ -53,5 +53,5 @@ def splunk_search(service, query, **kwargs):
             else:
                 result = pd.DataFrame(index=[row], data=[res])
             resultsdf = resultsdf.append(result, sort=True)
-            row+=1
+            row += 1
         return resultsdf, job
