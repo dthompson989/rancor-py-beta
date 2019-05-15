@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: ''
 
 Resources:
-
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
