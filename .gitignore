@@ -103,8 +103,11 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#pipenv
+# pipenv
 Pipfile.lock
 
 # ds_file
 .DS_Store
+
+# pem key files
+*.pem
