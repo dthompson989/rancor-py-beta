@@ -4,7 +4,7 @@ Resources:
   CreateThumbnail:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: handler
+      Handler: lambda_handler
       Runtime: python3.7
       Timeout: 60
       Policies: AWSLambdaExecute
