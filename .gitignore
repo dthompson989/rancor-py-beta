@@ -111,3 +111,6 @@ Pipfile.lock
 
 # pem key files
 *.pem
+
+# various config files
+config.dev.json
