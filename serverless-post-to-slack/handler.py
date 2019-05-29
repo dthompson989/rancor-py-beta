@@ -4,8 +4,9 @@ import os
 import requests
 
 
-def post_to_slack(event, content):
-    slack_url = os.environ['SLACK_WEBHOOK_URL']
+def post_to_slack(event, context):
+    """The lambda handler function"""
+    slack_url = os.environ['SLACK_URL']
     slack_message = "From {source} at {detail[StartTime]}: {detail[Description]}".format(**event)
     data = {"text": slack_message}
 
