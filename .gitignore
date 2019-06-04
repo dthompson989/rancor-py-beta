@@ -114,3 +114,6 @@ Pipfile.lock
 
 # various config files
 config.dev.json
+
+# Serverless directories
+.serverless
