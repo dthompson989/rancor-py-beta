@@ -7,14 +7,14 @@ import requests
 def post_to_slack(event, context):
     """The lambda handler function"""
     slack_url = os.environ['SLACK_URL']
-    slack_message = "From {source} at {detail[StartTime]}: {detail[Description]}".format(**event)
-    data = {"text": slack_message}
 
-    """Try to post to slack, logging successful or failure"""
+    """Try to post to slack, logging the successful or unsuccessful attempt"""
     try:
+        slack_message = "From {source} at {detail[StartTime]}: {detail[Description]}".format(**event)
+        data = {"text": slack_message}
         response = requests.post(slack_url, json=data)
-        print(event + " Response Code: " + response.status_code)
+        print("S3 LAMBDA Success Response Code: " + response.status_code)
     except Exception as e:
-        print(event + " FAILED!!! {}".format(e))
+        print("S3 LAMBDA FAILED!!! Error: {} ::: Event {}".format(e, event))
 
     return

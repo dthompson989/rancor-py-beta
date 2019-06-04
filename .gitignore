@@ -24,6 +24,8 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+package.json
+package-lock.json
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -114,6 +116,10 @@ Pipfile.lock
 
 # various config files
 config.dev.json
+config.prod.json
 
 # Serverless directories
 .serverless
+
+# ignore node.js stuff
+node_modules/

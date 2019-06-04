@@ -10,18 +10,22 @@
 #    docs.serverless.com
 #
 # Happy Coding!
-
-service: rancor-slack # NOTE: update this with your service name
+# NOTE: update this with your service name
+service: rancor-slack
 #app: your-app-name
 #tenant: your-tenant-name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+# frameworkVersion: "=1.44.1"
 
 provider:
   name: aws
   runtime: python3.7
+  profile: ${file(config.${self:provider.stage}.json):post_to_slack.profile}
+  region: us-east-1
+  environment:
+    SLACK_URL: ${file(config.${self:provider.stage}.json):post_to_slack.slack_url}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -56,9 +60,14 @@ provider:
 #    - exclude-me.py
 #    - exclude-me-dir/**
 
-functions:
-  hello:
+#functions:
+  post-to-slack:
     handler: handler.post_to_slack
+    description: Called by S3 create/remove events to post to slack
+#    events:
+#      - s3:
+#          event: s3:ObjectCreated:*
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -93,7 +102,6 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
-
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:
@@ -105,3 +113,6 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+plugins:
+  - serverless-python-requirements

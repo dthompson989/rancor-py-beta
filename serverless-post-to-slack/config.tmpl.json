@@ -1,6 +1,7 @@
 {
   "post_to_slack": {
     "slack_url": "",
-    "profile": ""
+    "profile": "",
+    "s3_bucket": ""
   }
 }
