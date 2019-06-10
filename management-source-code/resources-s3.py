@@ -48,6 +48,8 @@ def create_bucket(bucket, public, website):
         s3_bucket.config_website(new_bucket)
 
 
+# Command from pipenv shell:
+#     python management-source-code/resources-s3.py code-sync david-m-thompson-website/ david-m-thompson-website
 @cli.command('code-sync')
 @click.argument('path', type=click.Path(exists=True))
 @click.argument('bucket')
