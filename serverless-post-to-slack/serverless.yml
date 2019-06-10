@@ -24,6 +24,7 @@ provider:
   runtime: python3.7
   profile: ${file(config.${self:provider.stage}.json):post_to_slack.profile}
   region: us-east-1
+  stage: dev
   environment:
     SLACK_URL: ${file(config.${self:provider.stage}.json):post_to_slack.slack_url}
 
@@ -60,13 +61,17 @@ provider:
 #    - exclude-me.py
 #    - exclude-me-dir/**
 
-#functions:
+functions:
   post-to-slack:
     handler: handler.post_to_slack
     description: Called by S3 create/remove events to post to slack
-#    events:
-#      - s3:
-#          event: s3:ObjectCreated:*
+    events:
+      - s3:
+          bucket: rancor-us-east-virginia-2
+          event: s3:ObjectCreated:*
+      - s3:
+          bucket: rancor-us-east-virginia-2
+          event: s3:ObjectRemoved:*
 
 
 #    The following are a few example events you can configure

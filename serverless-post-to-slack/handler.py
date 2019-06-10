@@ -10,7 +10,7 @@ def post_to_slack(event, context):
 
     """Try to post to slack, logging the successful or unsuccessful attempt"""
     try:
-        slack_message = "From {source} at {detail[StartTime]}: {detail[Description]}".format(**event)
+        slack_message = "From {} {} {}".format(event['eventSource'], event['eventName'], event['object']['key'])
         data = {"text": slack_message}
         response = requests.post(slack_url, json=data)
         print("S3 LAMBDA Success Response Code: " + response.status_code)
