@@ -42,13 +42,14 @@ def list_bucket_objects(bucket):
 def create_bucket(bucket, public, website):
     """Create and configure an S3 bucket"""
     new_bucket = s3_bucket.create_bucket(bucket)
+
     if public:
         s3_bucket.set_policy(new_bucket)
     if website:
         s3_bucket.config_website(new_bucket)
 
 
-# Command from pipenv shell:
+# Command example from pipenv shell:
 #     python management-source-code/resources-s3.py code-sync david-m-thompson-website/ david-m-thompson-website
 @cli.command('code-sync')
 @click.argument('path', type=click.Path(exists=True))

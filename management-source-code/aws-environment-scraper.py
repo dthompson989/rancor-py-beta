@@ -1,11 +1,12 @@
 #!usr/bin/python
-"""This set of functions are used to gather detailed information about AWS environment using boto3, save it to an html
+""" **** AWS TEMPLATE ****
+
+   This set of functions are used to gather detailed information about AWS environment using boto3, save it to an html
    file, and push the file to AWS S3. *Note: It may not really save the file locally
 
    The first iteration will be this function, however the end goal will be to have an AWS Lambda function do this,
-   possible on a schedule ot something, so it runs itself weekly"""
+   possible on a schedule or something, so it runs itself weekly"""
 import boto3
-import json
 
 # A dictionary of all the tags I want to search for
 TAG_DICT = {'tag:Type': 'EC2'}
