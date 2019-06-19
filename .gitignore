@@ -123,3 +123,7 @@ config.prod.json
 
 # ignore node.js stuff
 node_modules/
+
+# ignore terraform config stuff
+.terraform
+*.tfstate
