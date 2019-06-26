@@ -128,3 +128,4 @@ node_modules/
 .terraform
 *.tfstate
 *.tfvars
+*.tfstate.backup
