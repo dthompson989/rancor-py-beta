@@ -1,5 +1,6 @@
 variable "profile" {}
 variable "ec2_type" {}
+variable "public_cidr" {}
 variable "region" {
   default = "us-east-1"
 }

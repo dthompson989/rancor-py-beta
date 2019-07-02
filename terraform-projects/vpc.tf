@@ -47,7 +47,7 @@ resource "aws_internet_gateway" "rancorMainIGW" {
 resource "aws_route_table" "rancorMainPublicRouteTable" {
   vpc_id = aws_vpc.rancorMainVPC.id
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.public_cidr
     gateway_id = aws_internet_gateway.rancorMainIGW.id
   }
   tags {
