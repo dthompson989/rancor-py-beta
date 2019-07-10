@@ -5,7 +5,7 @@ resource "aws_vpc" "rancorMainVPC" {
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
-  tags {
+  tags = {
     Name = "rancorMainVPC"
     CIDR = "192.168.0.0/16"
   }
@@ -17,7 +17,7 @@ resource "aws_subnet" "us-east-1a-public-01-rancorMainVPC" {
   cidr_block              = "192.168.1.0/24"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1a"
-  tags {
+  tags = {
     Name = "us-east-1a-public-01-rancorMainVPC"
     CIDR = "192.168.1.0/24"
   }
@@ -29,7 +29,7 @@ resource "aws_subnet" "us-east-1b-public-01-rancorMainVPC" {
   cidr_block              = "192.168.2.0/24"
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1b"
-  tags {
+  tags = {
     Name = "us-east-1b-public-01-rancorMainVPC"
     CIDR = "192.168.2.0/24"
   }
@@ -41,7 +41,7 @@ resource "aws_subnet" "us-east-1c-private-01-rancorMainVPC" {
   cidr_block              = "192.168.3.0/24"
   map_public_ip_on_launch = "false"
   availability_zone       = "us-east-1c"
-  tags {
+  tags = {
     Name = "us-east-1c-private-01-rancorMainVPC"
     CIDR = "192.168.3.0/24"
   }
@@ -50,7 +50,7 @@ resource "aws_subnet" "us-east-1c-private-01-rancorMainVPC" {
 # rancorMainVPC Internet Gateway
 resource "aws_internet_gateway" "rancorMainIGW" {
   vpc_id = aws_vpc.rancorMainVPC.id
-  tags {
+  tags = {
     Name = "rancorMainIGW"
   }
 }
@@ -62,7 +62,7 @@ resource "aws_route_table" "rancorMainPublicRouteTable" {
     cidr_block = var.public_cidr
     gateway_id = aws_internet_gateway.rancorMainIGW.id
   }
-  tags {
+  tags = {
     Name = "rancorMainPublicRouteTable"
   }
 }
@@ -70,7 +70,7 @@ resource "aws_route_table" "rancorMainPublicRouteTable" {
 # rancorMainVPC Private Route Table
 resource "aws_route_table" "rancorMainPrivateRouteTable" {
   vpc_id = aws_vpc.rancorMainVPC.id
-  tags {
+  tags = {
     Name = "rancorMainPrivateRouteTable"
   }
 }
@@ -82,7 +82,7 @@ resource "aws_route_table_association" "rancorMainPublic01RouteTableAssociation"
 }
 
 # rancorMainVPC Public AZ1b Route Association
-resource "aws_route_table_association" "rancorMainPublic01RouteTableAssociation" {
+resource "aws_route_table_association" "rancorMainPublic02RouteTableAssociation" {
   subnet_id      = aws_subnet.us-east-1b-public-01-rancorMainVPC.id
   route_table_id = aws_route_table.rancorMainPublicRouteTable.id
 }

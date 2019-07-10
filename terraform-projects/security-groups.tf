@@ -15,13 +15,7 @@ resource "aws_security_group" "rancor-main-default-sg" {
     protocol    = "TCP"
     cidr_blocks = [var.public_cidr]
   }
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "TCP"
-    cidr_blocks = [var.public_cidr]
-  }
-  tags {
+  tags = {
     Name = "rancor-main-default-sg"
   }
 }
