@@ -1,6 +1,6 @@
 resource "aws_elb" "rancor-elb-01" {
   name            = "rancor-elb-01"
-  subnets         = [aws_subnet.us-east-1a-public-01-rancorMainVPC.id, aws_subnet.us-east-1b-public-01-rancorMainVPC.id]
+  subnets         = [aws_subnet.us-east-1a-public-rancorMainVPC.id, aws_subnet.us-east-1b-public-rancorMainVPC.id]
   security_groups = [aws_security_group.rancor-main-default-sg.id]
   listener {
     instance_port     = 80
