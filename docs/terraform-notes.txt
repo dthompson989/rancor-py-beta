@@ -1,0 +1,14 @@
+DEVOPS CI/CD PIPELINE:
+
+    Git -> Jenkins -> Terraform -> Packer
+
+Git: Version Control
+Jenkins: CI/CD Pipeline
+Terraform: Architecture
+Packer: AWS AMI's
+
+Steps:
+    1: git clone app repo
+    2: packer build
+    3: git clone terraform repo
+    4: terraform apply
