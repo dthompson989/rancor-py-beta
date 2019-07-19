@@ -1,6 +1,15 @@
 variable "profile" {}
 variable "ec2_type" {}
 variable "public_cidr" {}
+variable "asg_min_size" {
+  default = 1
+}
+variable "asg_max_size" {
+  default = 2
+}
+variable "asg_health_check_type" {
+  default = "ELB"
+}
 variable "region" {
   default = "us-east-1"
 }

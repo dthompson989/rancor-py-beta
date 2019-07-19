@@ -10,9 +10,9 @@ resource "aws_autoscaling_group" "rancor-ec2-asg-01" {
   name                      = "rancor-ec2-asg-01"
   vpc_zone_identifier       = [aws_subnet.us-east-1a-public-rancorMainVPC.id, aws_subnet.us-east-1b-public-rancorMainVPC.id]
   launch_configuration      = aws_launch_configuration.rancor-ec2-launchconfig.name
-  min_size                  = 1
-  max_size                  = 2
-  health_check_type         = "ELB"
+  min_size                  = var.asg_min_size
+  max_size                  = var.asg_max_size
+  health_check_type         = var.asg_health_check_type
   health_check_grace_period = 300
   load_balancers            = [aws_elb.rancor-elb-01.name]
   force_delete              = true
