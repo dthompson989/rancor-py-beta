@@ -129,6 +129,3 @@ node_modules/
 *.tfstate
 *.tfvars
 *.tfstate.backup
-
-# unit test stuff
-unit_tests
