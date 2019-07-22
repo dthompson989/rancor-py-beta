@@ -124,8 +124,11 @@ config.prod.json
 # ignore node.js stuff
 node_modules/
 
-# ignore terraform config stuff
+# terraform config stuff
 .terraform
 *.tfstate
 *.tfvars
 *.tfstate.backup
+
+# unit test stuff
+unit_tests/
