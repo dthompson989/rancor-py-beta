@@ -1,61 +1,61 @@
 # Internet VPC
 resource "aws_vpc" "rancorMainVPC" {
-  cidr_block           = "192.168.0.0/16"
+  cidr_block           = var.rancormainvpc_cidr
   instance_tenancy     = "default"
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
   tags = {
     Name = "rancorMainVPC"
-    CIDR = "192.168.0.0/16"
+    CIDR = var.rancormainvpc_cidr
   }
 }
 
 # rancorMainVPC Public Subnet 1
 resource "aws_subnet" "us-east-1a-public-rancorMainVPC" {
   vpc_id                  = aws_vpc.rancorMainVPC.id
-  cidr_block              = "192.168.1.0/24"
+  cidr_block              = var.public_subnet_1_cidr
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1a"
   tags = {
     Name = "us-east-1a-public-rancorMainVPC"
-    CIDR = "192.168.1.0/24"
+    CIDR = var.public_subnet_1_cidr
   }
 }
 
 # rancorMainVPC Public Subnet 2
 resource "aws_subnet" "us-east-1b-public-rancorMainVPC" {
   vpc_id                  = aws_vpc.rancorMainVPC.id
-  cidr_block              = "192.168.2.0/24"
+  cidr_block              = var.public_subnet_2_cidr
   map_public_ip_on_launch = "true"
   availability_zone       = "us-east-1b"
   tags = {
     Name = "us-east-1b-public-rancorMainVPC"
-    CIDR = "192.168.2.0/24"
+    CIDR = var.public_subnet_1_cidr
   }
 }
 
 # rancorMainVPC Private Subnet 1
 resource "aws_subnet" "us-east-1c-private-rancorMainVPC" {
   vpc_id                  = aws_vpc.rancorMainVPC.id
-  cidr_block              = "192.168.3.0/24"
+  cidr_block              = var.private_subnet_1_cidr
   map_public_ip_on_launch = "false"
   availability_zone       = "us-east-1c"
   tags = {
     Name = "us-east-1c-private-rancorMainVPC"
-    CIDR = "192.168.3.0/24"
+    CIDR = var.private_subnet_1_cidr
   }
 }
 
 # rancorMainVPC Private Subnet 2
 resource "aws_subnet" "us-east-1d-private-rancorMainVPC" {
   vpc_id                  = aws_vpc.rancorMainVPC.id
-  cidr_block              = "192.168.4.0/24"
+  cidr_block              = var.private_subnet_2_cidr
   map_public_ip_on_launch = "false"
   availability_zone       = "us-east-1d"
   tags = {
     Name = "us-east-1d-private-rancorMainVPC"
-    CIDR = "192.168.4.0/24"
+    CIDR = var.private_subnet_2_cidr
   }
 }
 

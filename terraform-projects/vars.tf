@@ -1,18 +1,23 @@
+# Provider
 variable "profile" {}
+variable "region" { default = "us-east-1" }
+# Instances
 variable "ec2_type" {}
+variable "ec2_mirror_type" {}
+# Auto Scaling
+variable "asg_min_size" { default = 1 }
+variable "asg_max_size" { default = 2 }
+variable "asg_health_check_type" { default = "ELB" }
+# S3
+variable "s3_bucket_arn" {}
+# Networking
 variable "public_cidr" {}
-variable "asg_min_size" {
-  default = 1
-}
-variable "asg_max_size" {
-  default = 2
-}
-variable "asg_health_check_type" {
-  default = "ELB"
-}
-variable "region" {
-  default = "us-east-1"
-}
+variable "rancormainvpc_cidr" {}
+variable "public_subnet_1_cidr" {}
+variable "public_subnet_2_cidr" {}
+variable "private_subnet_1_cidr" {}
+variable "private_subnet_2_cidr" {}
+# AMI's
 variable "ami_id" {
   type    = "map"
   default = {
