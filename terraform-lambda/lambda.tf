@@ -10,3 +10,5 @@ resource "aws_lambda_function" "rancor-terminate-interrupt" {
 
   }
 }
+# A CloudWatch Event invokes this Lambda when a lifecycle action occurs.
+# Use the aws_autoscaling_lifecycle_hook resource

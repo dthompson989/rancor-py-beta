@@ -42,4 +42,15 @@ resource "aws_autoscaling_policy" "ec2-scale-down" {
   policy_type            = "SimpleScaling"
 }
 
+resource "aws_autoscaling_lifecycle_hook" "rancor-terminate-interrupt" {
+  name                    = "rancor-terminate-interrupt"
+  autoscaling_group_name  = aws_autoscaling_group.rancor-ec2-asg-01.name
+  default_result          = "CONTINUE"
+  heartbeat_timeout       = "500"
+  lifecycle_transition    = "autoscaling:EC2_INSTANCE_TERMINATING"
+  notification_metadata   = {  }
+  notification_target_arn = ""
+  role_arn                = ""
+}
+
 # Optional: Add notification, maybe a slack notification
