@@ -1,4 +1,4 @@
-resource "aws_lambda_function" "rancor-terminate-interupt" {
+resource "aws_lambda_function" "rancor-terminate-interrupt" {
   runtime          = var.lamdba_runtime
   handler          = var.lambda_handler
   function_name    = var.lambda_function
