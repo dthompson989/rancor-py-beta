@@ -26,6 +26,7 @@ wheels/
 MANIFEST
 package.json
 package-lock.json
+.idea
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -106,6 +107,7 @@ venv.bak/
 .mypy_cache/
 
 # pipenv
+Pipfile
 Pipfile.lock
 
 # ds_file
@@ -130,3 +132,4 @@ node_modules/
 *.tfstate
 *.tfvars
 *.tfstate.backup
+*.tfstate.lock.info
