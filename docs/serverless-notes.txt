@@ -1,0 +1,6 @@
+Notes on serverless-post-to-slack usage:
+
+To deploy changes to AWS:
+    cd to directory
+    cmd: sls deploy (or serverless deploy)
+    *** Note: This can take a few minutes to finish.

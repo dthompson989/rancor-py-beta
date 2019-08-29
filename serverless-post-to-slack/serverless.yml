@@ -64,13 +64,13 @@ provider:
 functions:
   post-to-slack:
     handler: handler.post_to_slack
-    description: Called by S3 create/remove events to post to slack
+    description: Called by AWS Service events to post to slack
     events:
       - s3:
-          bucket: rancor-us-east-virginia-2
+          bucket: ${file(config.${self:provider.stage}.json):post_to_slack.s3_bucket}
           event: s3:ObjectCreated:*
       - s3:
-          bucket: rancor-us-east-virginia-2
+          bucket: ${file(config.${self:provider.stage}.json):post_to_slack.s3_bucket}
           event: s3:ObjectRemoved:*
 
 
