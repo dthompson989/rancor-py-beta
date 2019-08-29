@@ -133,3 +133,6 @@ node_modules/
 *.tfvars
 *.tfstate.backup
 *.tfstate.lock.info
+
+# Random docs
+terraform-notes.text
