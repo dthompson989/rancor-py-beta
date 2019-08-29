@@ -135,4 +135,4 @@ node_modules/
 *.tfstate.lock.info
 
 # Random docs
-terraform-notes.text
+terraform-notes.txt
