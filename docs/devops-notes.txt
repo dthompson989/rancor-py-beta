@@ -2,6 +2,14 @@ DevOps/DevSecOps CI/CD PIPELINE:
 
     Git -> Jenkins -> Terraform -> Packer
 
+Overall Flow:
+- Developer commits code.
+- Jenkins builds/compiles the code (provides feedback on failure).
+- Jenkins runs tests (provides feedback on failure).
+- Application is packaged and set for release (can be a container).
+- Once packaged, it can be provisioned or deployed.
+
+
 Git: Version Control
 Jenkins: CI Pipeline
 Blue Ocean: CD Pipeline
