@@ -14,10 +14,10 @@ resource "aws_instance" "rancor-jenkins" {
 
 # The Jenkins EBS Volume
 resource "aws_ebs_volume" "rancor-jenkins-data" {
-  availability_zone = "us-east-2"
+  availability_zone = "us-east-2a"
   size              = 12
-  type              = gp2
-  tags {
+  type              = "gp2"
+  tags = {
     Name     = "rancor-jenkins-data"
     Size     = "12Gb"
     Type     = "GP2"
