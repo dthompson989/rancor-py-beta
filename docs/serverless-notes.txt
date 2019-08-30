@@ -4,3 +4,7 @@ To deploy changes to AWS:
     cd to directory
     cmd: sls deploy (or serverless deploy)
     *** Note: This can take a few minutes to finish.
+
+Testing:
+    As of 8/30/19, moto has not been fully and properly implemented. So far all that exists is
+    a couple of test json payloads to send to the lambda handler function.

@@ -2,7 +2,7 @@
   "Records":[
     {
       "eventVersion":"2.0",
-      "eventSource":"aws:s3",
+      "eventSource":"aws:s3:TEST",
       "awsRegion":"us-west-2",
       "eventTime":"1970-01-01T00:00:00.000Z",
       "eventName":"ObjectCreated:Put",
@@ -27,7 +27,7 @@
           "arn":"arn:aws:s3:::sourcebucket"
         },
         "object":{
-          "key":"HappyFace.jpg",
+          "key":"test.jpg",
           "size":1024,
           "eTag":"d41d8cd98f00b204e9800998ecf8427e",
           "versionId":"096fKKXTRTtl3on89fVO.nfljtsv6qko"

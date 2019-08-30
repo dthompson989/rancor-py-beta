@@ -3,6 +3,7 @@
    and sends a notification to slack. Built using Serverless"""
 import os
 import requests
+import json
 
 
 def post_to_slack(event, context):
@@ -11,13 +12,27 @@ def post_to_slack(event, context):
 
     """Try to post to slack, logging the successful or unsuccessful attempt"""
     try:
-        slack_message = "From {} {} {}".format(event['Records'][0]['eventSource'],
-                                               event['Records'][0]['eventName'],
-                                               event['Records'][0]['s3']['object']['key'])
+        """Convert json to a python object"""
+        data = json.loads(event)
+        source = 'None'
+        subject = 'None'
+        detail = 'None'
+
+        if 'eventSource' in data['Records'][0]:
+            source = data['Records'][0]['eventSource']
+            subject = data['Records'][0]['eventName']
+            detail = data['Records'][0]['s3']['object']['key']
+        elif 'EventSource' in data['Records'][0]:
+            source = data['Records'][0]['EventSource']
+            subject = data['Records'][0]['Sns']['Subject']
+            detail = data['Records'][0]['Sns']['Message']
+
+        # If the event that triggered this Lambda, for some reason has not been defined, I still want to know.
+        slack_message = "From {} {} {}".format(source, subject, detail)
         data = {"text": slack_message}
         response = requests.post(slack_url, json=data)
-        print("S3 LAMBDA Success Response Code: {}".format(response.status_code))
+        print("{} LAMBDA Success Response Code: {}".format(source, response.status_code))
     except Exception as e:
-        print("S3 LAMBDA FAILED!!! Error: {} ::: Event {}".format(e, event))
+        print("LAMBDA FAILED!!! Error: {} ::: Event {}".format(e, event))
 
     return
