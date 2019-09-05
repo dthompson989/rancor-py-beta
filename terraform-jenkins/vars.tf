@@ -8,13 +8,13 @@ variable "public_cidr" {}
 variable "rancor_jenkins_vpc_cidr" {}
 variable "public_subnet_1_cidr" {}
 variable "private_subnet_1_cidr" {}
-# AMI's
+# AMI's ::: Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
 variable "ami_id" {
   type    = "map"
   default = {
-    us-east-1 = "ami-0c6b1d09930fac512"
-    us-east-2 = "ami-02f706d959cedf892"
-    us-west-1 = "ami-0fcdcdb074d2bac5f"
-    us-west-2 = "ami-0f2176987ee50226e"
+    us-east-1 = "ami-00eb20669e0990cb4"
+    us-east-2 = "ami-0c64dd618a49aeee8"
+    us-west-1 = "ami-0bce08e823ed38bdd"
+    us-west-2 = "ami-08d489468314a58df"
   }
 }

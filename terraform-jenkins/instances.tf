@@ -12,7 +12,8 @@ resource "aws_instance" "rancor-jenkins" {
   }
 }
 
-# The Jenkins EBS Volume
+# The Jenkins EBS Volume ::: THIS SHOULD ONLY BE UNCOMMENTED IF THIS IS A NEW TERRAFORM PROJECT
+/*
 resource "aws_ebs_volume" "rancor-jenkins-data" {
   availability_zone = "us-east-2a"
   size              = 12
@@ -32,3 +33,4 @@ resource "aws_volume_attachment" "rancor-jenkins-attachment" {
   instance_id  = aws_instance.rancor-jenkins.id
   skip_destroy = true
 }
+*/
