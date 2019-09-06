@@ -51,6 +51,7 @@ def create_bucket(bucket, public, website):
 
 # Command example from pipenv shell:
 #     python management-source-code/resources-s3.py code-sync david-m-thompson-website/ david-m-thompson-website
+#     python management-source-code/resources-s3.py code-sync david-m-thompson-website/ davidthompson.cloud
 @cli.command('code-sync')
 @click.argument('path', type=click.Path(exists=True))
 @click.argument('bucket')
