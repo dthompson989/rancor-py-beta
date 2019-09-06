@@ -1,8 +1,8 @@
 .main-div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding-top: 10px;
+    background-color: #FBFBF8;
 }
 
 .main-div img {
