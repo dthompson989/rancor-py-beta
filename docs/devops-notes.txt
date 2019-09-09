@@ -29,5 +29,9 @@ Terraform Commands:
     4. terraform apply
 
 To Do:
-- build jenkins ec2 ami and instance in terraform? Or a Jenkins BO docker container?
+DONE - build jenkins ec2 ami and instance in terraform? Or a Jenkins BO docker container?
 - Setup Jenkins with blue ocean and git plugins. (and probably more).
+- AMI bake for Jenkins
+- Build generic Django App
+- Use Jenkins pipeline to deploy lambda django web app (using zappa?).
+
