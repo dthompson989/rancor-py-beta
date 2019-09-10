@@ -32,6 +32,6 @@ To Do:
 DONE - build jenkins ec2 ami and instance in terraform? Or a Jenkins BO docker container?
 - Setup Jenkins with blue ocean and git plugins. (and probably more).
 - AMI bake for Jenkins
+- Jenkins config automation, including creating secrets in AWS.
 - Build generic Django App
 - Use Jenkins pipeline to deploy lambda django web app (using zappa?).
-
