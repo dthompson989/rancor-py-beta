@@ -1,9 +1,10 @@
-# List of AWS Regions, Availability Zones, endpoints, protocols, and Route 53 Hosted Zone ID
+#!usr/bin/python
+""" List of AWS Regions, Availability Zones, endpoints, protocols, and Route 53 Hosted Zone ID """
 from collections import namedtuple
 
 Endpoint = namedtuple('Endpoint', ['region', 'host', 'zone'])
 
-# Region list from AWS documentation on 3/22/19
+""" Region list from AWS documentation on 3/22/19 """
 region_to_endpoint = {
     'us-east-2': Endpoint('US East (Ohio)', 's3-website.us-east-2.amazonaws.com', 'Z2O1EMRO9K5GLX'),
     'us-east-1': Endpoint('US East (N. Virginia)', 's3-website-us-east-1.amazonaws.com', 'Z3AQBSTGFYJSTF'),
