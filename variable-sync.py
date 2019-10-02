@@ -8,10 +8,13 @@ from botocore.exceptions import ClientError
 from pathlib import Path
 
 
-# The boto3 session user
+# The boto3 session resource
 s3 = boto3.resource('s3')
+# The terraform file name tp upload/download
 NAME = "terraform.tfvars"
+# The AWS S3 bucket name
 BUCKET_ROOT = "rancor-terraform-backend"
+# The only acceptable project argument names
 PROJECT_LIST = ['terraform-jenkins', 'terraform-lambda', 'terraform-projects-reference']
 
 
