@@ -18,7 +18,7 @@ PROJECT_LIST = ['terraform-jenkins', 'terraform-lambda', 'terraform-projects-ref
 # Setup CLI commands and params
 @click.group()
 def cli():
-    """Example: bash-3.2$ python variable_sync.py push terraform-jenkins"""
+    """Example: bash-3.2$ python variable-sync.py push terraform-jenkins"""
     pass
 
 
