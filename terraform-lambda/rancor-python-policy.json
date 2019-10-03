@@ -10,11 +10,15 @@
       },{
         "Effect": "Allow",
         "Action": "logs:CreateLogStream",
-        "Resource": "arn:aws:logs:us-east-1:627948436154:log-group:/aws/lambda/rancor-terminate-interrupt:*"
+        "Resource": "arn:aws:logs:us-east-2:627948436154:log-group:/aws/lambda/rancor-ami:*"
       },{
         "Effect": "Allow",
         "Action": "logs:PutLogEvents",
-        "Resource": "arn:aws:logs:us-east-1:627948436154:log-group:/aws/lambda/rancor-terminate-interrupt:*:*"
+        "Resource": "arn:aws:logs:us-east-2:627948436154:log-group:/aws/lambda/rancor-ami:*:*"
+      },{
+        "Effect": "Allow",
+        "Action": "ec2:*",
+        "Resource": "*"
       }
     ]
-  }
+}

@@ -1,6 +1,6 @@
 # Provider
 variable "profile" {}
-variable "region" { default = "us-east-1" }
+variable "region" { default = "us-east-2" }
 # Lambda Config and Settings
 variable "lamdba_runtime" {}
 variable "lambda_handler" {}

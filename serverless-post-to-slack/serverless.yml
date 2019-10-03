@@ -12,8 +12,7 @@
 # Happy Coding!
 # NOTE: update this with your service name
 service: rancor-slack
-#app: your-app-name
-#tenant: your-tenant-name
+#app: serverless-post-to-slack
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details

@@ -1,6 +1,6 @@
 #!usr/bin/python
 """A Lambda function that receives events from AWS Services, Logs the event (in some way),
-   and sends a notification to slack. Built using Serverless"""
+   and sends a notification to slack. Built using Serverless. Currently receives events from S3 and SNS"""
 import os
 import requests
 import json

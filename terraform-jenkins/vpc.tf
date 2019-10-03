@@ -43,6 +43,14 @@ resource "aws_internet_gateway" "rancorJenkinsIGW" {
   }
 }
 
+# rancorJenkinsVPC Endpoint For SNS
+resource "aws_vpc_endpoint" "rancor-sns-vpc-endpoint" {
+  vpc_id              = aws_vpc.rancorJenkinsVPC.id
+  service_name        = "com.amazonaws.us-east-2.sns"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+}
+
 # rancorJenkinsVPC Public Route Table
 resource "aws_route_table" "rancorJenkinsPublicRouteTable" {
   vpc_id = aws_vpc.rancorJenkinsVPC.id
