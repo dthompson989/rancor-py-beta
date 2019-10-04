@@ -1,0 +1,14 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": "logs:CreateLogStream",
+        "Resource": "arn:aws:logs:us-east-2:627948436154:log-group:/aws/sns/terraform-sns:*"
+      },{
+        "Effect": "Allow",
+        "Action": "logs:PutLogEvents",
+        "Resource": "arn:aws:logs:us-east-2:627948436154:log-group:/aws/sns/terraform-sns:*:*"
+      }
+    ]
+}
