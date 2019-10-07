@@ -1,9 +1,22 @@
 #!usr/bin/python3
 """This Lambda is an AMI maintenance Lambda. It is in charge of creating, deleting, and auditing AMI's"""
+import os
 import boto3
 from botocore.exceptions import ClientError
 
 ec2_client = boto3.client('ec2')
+sns_client = boto3.client('sns')
+
+
+def send_sns(msg):
+    if msg:
+        try:
+            response = sns_client.publish(TopicArn=os.environ['SNS_ARN'], Message=msg)
+            print("SNS Response: {} MESSAGE: {}".format(response, msg))
+        except ClientError as e:
+            print("ERROR! from send_sns() {}".format(e))
+    else:
+        print("ERROR! from send_sns() No msg")
 
 
 def delete_images(ami_name):
