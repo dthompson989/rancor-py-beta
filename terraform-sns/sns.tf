@@ -7,6 +7,7 @@ resource "aws_sns_topic_policy" "rancor-sns-policy" {
   policy = file("rancor-sns-policy.json")
 }
 
+# This uses the serverless-post-to-slack lambda as its endpoint
 resource "aws_sns_topic_subscription" "rancor-sns-lambda-subscription" {
   topic_arn = aws_sns_topic.rancor-sns.arn
   protocol  = "lambda"
