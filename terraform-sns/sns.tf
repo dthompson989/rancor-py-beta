@@ -6,10 +6,10 @@ resource "aws_sns_topic" "rancor-sns" {
   }
 }
 
-# IAM policy from iam.tf
+# IAM topic policy from iam.tf
 resource "aws_sns_topic_policy" "rancor-sns-policy" {
   arn    = aws_sns_topic.rancor-sns.arn
-  policy = aws_iam_policy.rancor-sns-policy.policy
+  policy = data.aws_iam_policy_document.rancor-sns-policy-document.json
 }
 
 # This uses the serverless-post-to-slack lambda as its endpoint

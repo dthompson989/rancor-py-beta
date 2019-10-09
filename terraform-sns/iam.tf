@@ -1,19 +1,22 @@
+# This is the IAM SNS Policy
 data "aws_iam_policy_document" "rancor-sns-policy-document" {
+  policy_id = "__default_policy_ID"
   statement {
-    effect    = "Allow"
-    actions   = ["logs:CreateLogStream"]
-    resources = ["arn:aws:logs:us-east-2:627948436154:log-group:/aws/sns/terraform-sns:*"]
+    actions = [
+      "SNS:Subscribe",
+      "SNS:SetTopicAttributes",
+      "SNS:RemovePermission",
+      "SNS:Receive",
+      "SNS:Publish",
+      "SNS:ListSubscriptionsByTopic",
+      "SNS:GetTopicAttributes",
+      "SNS:DeleteTopic",
+      "SNS:AddPermission"
+    ]
+    principals {
+      type = "AWS"
+      identifiers = ["*"]
+    }
+    resources = [aws_sns_topic.rancor-sns.arn]
   }
-  statement {
-    effect    = "Allow"
-    actions   = ["logs:PutLogEvents"]
-    resources = ["arn:aws:logs:us-east-2:627948436154:log-group:/aws/sns/terraform-sns:*:*"]
-  }
-}
-
-# Used in sns.tf
-resource "aws_iam_policy" "rancor-sns-policy" {
-  name        = "rancor-sns-policy"
-  description = "The SNS IAM policy to allow CloudWatch logging"
-  policy      = data.aws_iam_policy_document.rancor-sns-policy-document.json
 }
