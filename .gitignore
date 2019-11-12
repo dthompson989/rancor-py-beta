@@ -139,5 +139,5 @@ terraform-notes.txt
 
 # ignore reference sub folder
 !reference/
-reference/*
-reference/
+*/reference/*
+*/reference/
