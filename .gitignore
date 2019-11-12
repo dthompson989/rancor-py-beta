@@ -136,3 +136,7 @@ node_modules/
 
 # Random docs
 terraform-notes.txt
+
+# ignore reference sub folder
+!reference/
+reference/*

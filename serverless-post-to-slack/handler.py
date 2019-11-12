@@ -3,6 +3,7 @@
    and sends a notification to slack. Built using Serverless. Currently receives events from S3 and SNS"""
 import os
 import requests
+from requests.exceptions import HTTPError
 import json
 
 
@@ -34,5 +35,8 @@ def post_to_slack(event, context):
         print("{} LAMBDA Success Response Code: {}".format(source, response.status_code))
     except Exception as e:
         print("LAMBDA FAILED!!! Error: {} ::: Event {}".format(e, event))
+        return None
 
-    return
+    return response.status_code
+
+# Use pytest and/or botocore.stub for testing

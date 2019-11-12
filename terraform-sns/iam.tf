@@ -3,15 +3,15 @@ data "aws_iam_policy_document" "rancor-sns-policy-document" {
   policy_id = "__default_policy_ID"
   statement {
     actions = [
-      "SNS:Subscribe",
-      "SNS:SetTopicAttributes",
-      "SNS:RemovePermission",
-      "SNS:Receive",
-      "SNS:Publish",
-      "SNS:ListSubscriptionsByTopic",
-      "SNS:GetTopicAttributes",
-      "SNS:DeleteTopic",
-      "SNS:AddPermission"
+      "sns:Subscribe",
+      "sns:SetTopicAttributes",
+      "sns:RemovePermission",
+      "sns:Receive",
+      "sns:Publish",
+      "sns:ListSubscriptionsByTopic",
+      "sns:GetTopicAttributes",
+      "sns:DeleteTopic",
+      "sns:AddPermission"
     ]
     principals {
       type = "AWS"

@@ -79,3 +79,5 @@ def auto_ami(event, context):
             print("WARNING! There is no {} ec2 instance found!".format(name))
     except ClientError as e:
         print("ERROR! from auto_ami() {}".format(e))
+
+# Use pytest and/or botocore.stub for testing

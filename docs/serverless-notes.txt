@@ -8,3 +8,5 @@ To deploy changes to AWS:
 Testing:
     As of 8/30/19, moto has not been fully and properly implemented. So far all that exists is
     a couple of test json payloads to send to the lambda handler function.
+
+    pytest and mock can also be used

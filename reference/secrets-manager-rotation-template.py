@@ -49,16 +49,12 @@ def lambda_handler(event, context):
 
     if step == "createSecret":
         create_secret(service_client, arn, token)
-
     elif step == "setSecret":
         set_secret(service_client, arn, token)
-
     elif step == "testSecret":
         test_secret(service_client, arn, token)
-
     elif step == "finishSecret":
         finish_secret(service_client, arn, token)
-
     else:
         raise ValueError("Invalid step parameter")
 
