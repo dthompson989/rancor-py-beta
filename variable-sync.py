@@ -1,7 +1,8 @@
 #!usr/bin/python
-""" This is a script that pushes or pulls terraform.tfvars files. The reason for this is I want to
-    save tfvars files in AWS S3 so I can switch between different computers and not have to copy
-    and paste variables as they change. """
+""" This is a script that pushes or pulls terraform.tfvars files. The file and sub folder don't have to
+    exist when pushing, it will be created by S3. The reason for this is I want to save tfvars files in
+    AWS S3 so I can switch between different computers and not have to copy and paste variables as they
+    change. """
 import click
 import boto3
 from botocore.exceptions import ClientError
@@ -15,7 +16,11 @@ NAME = "terraform.tfvars"
 # The AWS S3 bucket name
 BUCKET_ROOT = "rancor-terraform-backend"
 # The only acceptable project argument names
-PROJECT_LIST = ['terraform-jenkins', 'terraform-lambda', 'terraform-projects-reference', 'terraform-sns']
+PROJECT_LIST = ['terraform-jenkins',
+                'terraform-lambda',
+                'terraform-projects-reference',
+                'terraform-sns',
+                'terraform-jenkins-iam']
 
 
 # Setup CLI commands and params
