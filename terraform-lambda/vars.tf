@@ -6,3 +6,5 @@ variable "lamdba_runtime" {}
 variable "lambda_handler" {}
 variable "lambda_filename" {}
 variable "lambda_function" {}
+# SNS ARN
+variable "sns_arn" {}

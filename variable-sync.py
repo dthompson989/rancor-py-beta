@@ -38,7 +38,7 @@ def push(project):
                                               ExtraArgs={'ContentType': 'text/plain'})
         print("Push complete: {}".format(response))
     except ClientError as e:
-        print("ERROR! {}".format(e))
+        print("ClientError! {}".format(e))
 
 
 @cli.command('pull')
@@ -53,7 +53,7 @@ def pull(project):
                                                 str(path))
         print("Pull complete: {}".format(response))
     except ClientError as e:
-        print("ERROR! {}".format(e))
+        print("ClientError! {}".format(e))
 
 
 if __name__ == '__main__':

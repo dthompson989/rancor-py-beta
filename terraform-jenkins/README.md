@@ -9,4 +9,4 @@ Jenkins server since I plan on baking my Jenkins AMI at some point.
 
 
 **To Do:** 
-* Build Jenkins AMI
+* Build Jenkins AMI - This is going to be accomplished using terraform-lambda 

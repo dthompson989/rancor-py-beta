@@ -8,7 +8,7 @@ resource "aws_lambda_function" "rancor-auto-ami" {
 
   environment = {
     variables = {
-      "SNS_ARN" = "arn:aws:sns:us-east-2:627948436154:rancor-sns"
+      "SNS_ARN" = var.sns_arn
     }
   }
 
