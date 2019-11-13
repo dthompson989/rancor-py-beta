@@ -21,7 +21,7 @@
         "Resource": "*"
       },{
         "Effect": "Allow",
-        "Action": "SNS:Publish",
+        "Action": "sns:Publish",
         "Resource": "arn:aws:sns:us-east-2:627948436154:rancor-sns"
       }
     ]
