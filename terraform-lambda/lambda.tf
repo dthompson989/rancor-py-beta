@@ -6,9 +6,9 @@ resource "aws_lambda_function" "rancor-auto-ami" {
   source_code_hash = filebase64sha256(var.lambda_filename)
   role             = aws_iam_role.rancor-python-ami-role.arn
 
-  environment = {
+  environment {
     variables = {
-      "SNS_ARN" = var.sns_arn
+      SNS_ARN = var.sns_arn
     }
   }
 

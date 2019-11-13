@@ -37,6 +37,7 @@ resource "aws_iam_policy" "jenkins-additional-policy" {
 }
 
 ################# IAM ROLE #################
+# NOTE: for assume_role_policy, aws_iam_policy cannot be used. Instead use aws_iam_policy_document directly
 resource "aws_iam_role" "rancor-jenkins-role" {
   name               = "rancor-jenkins-role"
   assume_role_policy = data.aws_iam_policy_document.jenkins-assume-role-policy-document.json

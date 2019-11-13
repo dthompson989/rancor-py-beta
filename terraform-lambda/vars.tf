@@ -8,3 +8,6 @@ variable "lambda_filename" {}
 variable "lambda_function" {}
 # SNS ARN
 variable "sns_arn" {}
+# CloudWatch ARN's
+variable cw_log_stream_arn {}
+variable cw_put_log_arn {}
