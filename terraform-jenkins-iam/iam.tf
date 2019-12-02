@@ -19,12 +19,26 @@ data "aws_iam_policy_document" "jenkins-additional-policy-document" {
     resources = [var.sns_arn]
   }
   statement {
-    actions   =["logs:CreateLogStream"]
+    actions   = ["logs:CreateLogStream"]
     resources = [var.cw_log_stream_arn]
   }
   statement {
-    actions   =["logs:PutLogEvents"]
+    actions   = ["logs:PutLogEvents"]
     resources = [var.cw_put_log_arn]
+  }
+  statement {
+    actions   = ["s3:*"]
+    resources = [
+      var.prod_website,
+      var.dev_website
+    ]
+  }
+  statement {
+    actions   = [
+      "s3:Get*",
+      "s3:List*"
+    ]
+    resources = [var.tf_backend]
   }
 }
 

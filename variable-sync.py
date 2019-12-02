@@ -20,7 +20,8 @@ PROJECT_LIST = ['terraform-jenkins',
                 'terraform-lambda',
                 'terraform-projects-reference',
                 'terraform-sns',
-                'terraform-jenkins-iam']
+                'terraform-jenkins-iam',
+                'terraform-auditor']
 
 
 # Setup CLI commands and params
