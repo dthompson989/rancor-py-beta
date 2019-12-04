@@ -1,4 +1,4 @@
-#!usr/bin/python
+#!usr/bin/python3.7
 """A Python function that zips up a directory or file, and saves the output in the
    same directory/parent directory. Used primarily with terraform-lambda/ """
 import shutil
@@ -19,7 +19,7 @@ def zip_dir(zip_input, zip_output):
 
 
 if __name__ == '__main__':
-    """ Main Function. Example input: terraform-lambda/rancor-lambda-payload"""
+    """ Main Function. Example input: terraform-lambda/rancor-lambda-payload """
     print("Hello! I will zip a directory or file for you and save a copy in the same parent directory")
     input_dir = input("What is the directory or file you want to ZIP? ")
     output_name = Path.joinpath(Path(input_dir).parent, Path(input_dir).anchor, Path(input_dir).resolve().stem)
