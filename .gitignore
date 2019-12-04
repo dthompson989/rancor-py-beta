@@ -143,4 +143,5 @@ terraform-notes.txt
 */reference/
 
 # ignore any xquery
+/xqy
 *.xqy
