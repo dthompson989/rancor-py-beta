@@ -84,8 +84,8 @@ def asg_describer():
                 scale_list.append([name, min_size, max_size, desired, policies])
 
         print(f"Total ASG's: {total_count}")
-        print(f"ASG's that CAN Scale (Imagine That): {scale_count}")
-        print(f"ASG's that DO NOT Scale (WHY?): {dont_scale_count}")
+        print(f"ASG's That CAN Scale (Imagine That): {scale_count}")
+        print(f"ASG's That DO NOT Scale (WHY?): {dont_scale_count}")
 
         # If the output flag is set, then print details
         if args.output:
@@ -117,5 +117,6 @@ def asg_describer():
 
 if __name__ == '__main__':
     """The Main function"""
-    print(f"Checking the AWS account for {args.profile} in region {args.region} . . . ")
+    print(f"Checking The AWS Account For {args.profile} In Region {args.region} . . . ")
     asg_describer()
+    # TODO: Potentially combine all of these scripts, if it can be done in a reasonable way.

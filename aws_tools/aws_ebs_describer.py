@@ -1,13 +1,13 @@
 #!usr/bin/python3.7
-"""Usage: python3 aws_ec2_describer.py -h """
+"""Usage: python3 aws_ebs_describer.py -h """
 import argparse
 import boto3
 from botocore.exceptions import ClientError
 from botocore.exceptions import OperationNotPageableError
 
 # Parser for command line arguments
-parser = argparse.ArgumentParser(prog="python3 aws_ec2_describer.py",
-                                 description="This is a script to show the details of EC2 instances within a given "
+parser = argparse.ArgumentParser(prog="python3 aws_ebs_describer.py",
+                                 description="This is a script to show the details of EBS volumes within a given "
                                              "account and region.")
 # Add parser arguments
 parser.add_argument("-p",
@@ -40,25 +40,21 @@ args = parser.parse_args()
 session = boto3.Session(profile_name=args.profile)
 
 
-def ec2_describer():
-    """ This function handles describing ec2 instances that have some kind of issue that needs addressing, such as
-        instances that have been running for a long time and (maybe) out of date ami's """
+def ebs_describer():
+    """ This function handles describing ebs volumes that have some kind of issue that needs addressing, such as
+        ebs volumes that have existed for a long time and ebs volumes that are not used. """
     try:
-        # These variables are for instances that have issues
-        total_ec2 = 0
-        long_running_ec2 = 0
-        outdated_ami = 0
-        ec2_detail_list = []
-
-        print(f"Total EC2's with Issues: {total_count}")
-        print(f"ASG's that CAN Scale (Imagine That): {scale_count}")
-        print(f"ASG's that DO NOT Scale (WHY?): {dont_scale_count}")
+        # These variables are for volumes that have issues
+        total_ebs = 0
+        long_running_ebs = 0
+        unused_ebs = 0
+        ebs_detail_list = []
 
         # If the output flag is set, then print details
         if args.output:
-            # List the problem EC2 Instances
+            # List the problem EBS volumes
             print("***************************************************************************************************")
-            print("EC2 Instances with an issue that needs addressing . . . ")
+            print("EBS Volumes with an issue that needs addressing . . . ")
 
     except ClientError as ce:
         print(f"ERROR! ClientError: {ce}")
@@ -69,5 +65,5 @@ def ec2_describer():
 if __name__ == '__main__':
     """The Main function"""
     print(f"Checking The AWS Account For {args.profile} In Region {args.region} . . . ")
-    ec2_describer()
+    ebs_describer()
     # TODO: Potentially combine all of these scripts, if it can be done in a reasonable way.
