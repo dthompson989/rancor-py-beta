@@ -23,14 +23,14 @@ if __name__ == '__main__':
 				print('Port {}:    OPEN'.format(port))
 			sock.close()
 	except KeyboardInterrupt:
-			print('Scan Stopped')
-			sys.exit()
+		print('Scan Stopped')
+		sys.exit()
 	except socket.gaierror:
-			print('Hostname could not be resolved')
-			sys.exit()
+		print('Hostname could not be resolved')
+		sys.exit()
 	except socket.error:
-			print('Could not connect to server')
-			sys.exit()
+		print('Could not connect to server')
+		sys.exit()
 
 	t2 = datetime.now()
 

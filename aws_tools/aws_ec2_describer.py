@@ -50,9 +50,9 @@ def ec2_describer():
         outdated_ami = 0
         ec2_detail_list = []
 
-        print(f"Total EC2's with Issues: {total_count}")
-        print(f"ASG's that CAN Scale (Imagine That): {scale_count}")
-        print(f"ASG's that DO NOT Scale (WHY?): {dont_scale_count}")
+        print(f"Total EC2's with Issues: {total_ec2}")
+        print(f"EC2's That Have Been Running For A Long Time: {long_running_ec2}")
+        print(f"Outdated AMI's: {outdated_ami}")
 
         # If the output flag is set, then print details
         if args.output:
