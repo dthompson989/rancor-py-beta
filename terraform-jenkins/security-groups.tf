@@ -9,6 +9,17 @@ resource "aws_security_group" "rancor-jenkins-default-sg" {
     protocol    = "-1"
     cidr_blocks = [var.public_cidr]
   }
+  # The new hotness
+  dynamic "ingress" {
+    for_each = [80, 8080]
+    content {
+      from_port = ingress.value
+      to_port = ingress.value
+      protocol    = "TCP"
+      cidr_blocks = [var.public_cidr]
+    }
+  }
+  /** Old and busted way of doing this ^
   ingress {
     from_port   = 80
     to_port     = 80
@@ -21,6 +32,7 @@ resource "aws_security_group" "rancor-jenkins-default-sg" {
     protocol    = "TCP"
     cidr_blocks = [var.public_cidr]
   }
+  */
   tags = {
     Name = "rancor-jenkins-default-sg"
   }

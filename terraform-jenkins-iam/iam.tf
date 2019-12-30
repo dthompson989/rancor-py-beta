@@ -12,6 +12,7 @@ data "aws_iam_policy_document" "jenkins-assume-role-policy-document" {
 }
 
 # This is the IAM Additional Permissions Document
+# NOTE: This can probably be rewritten using a for loop and a mapping of actions and resources
 data "aws_iam_policy_document" "jenkins-additional-policy-document" {
   policy_id = "__default_jenkins_policy_ID"
   statement {

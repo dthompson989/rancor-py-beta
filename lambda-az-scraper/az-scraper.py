@@ -8,7 +8,8 @@ s3_client = boto3.client('s3')
 
 def list_instances():
     """A function to describe the instances in a given region"""
-    obj = ec2_client.describe_instances(Filters=[{'Name': 'instance-state-name', 'Values': ['pending', 'running', 'stopped']}])
+    obj = ec2_client.describe_instances(Filters=[{'Name': 'instance-state-name',
+                                                  'Values': ['pending', 'running', 'stopped']}])
 
     for reservation in obj["Reservations"]:
         for instance in reservation["Instances"]:

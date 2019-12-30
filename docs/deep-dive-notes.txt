@@ -1,0 +1,38 @@
+Documentation: https://github.com/fbaptiste/python-deepdive
+
+* TIP: A funny python joke is __mifflin (the __ is called a dunder)
+
+PEP 8 is the python style guide:
+    - This should be used to keep standards in code naming and styling conventions.
+    * Again, this is a guide. It might make sense to break away from a convention in your code.
+
+'while True:' with a 'break' inside is the same as a do while loop
+
+A while loop can have an else clause at the end (while else). The else with run if the while runs all the way through
+to completion without breaking or continuing. IE it didn't encounter a break.
+
+With the finally clause, it always runs, even with break and continue in a loop.
+
+We can overload a built in python function, like str, by using def __str__()
+
+There is no such thing as a private variable in python
+
+Decorators are very important, especially when defining a Class
+
+To find the memory address of a variable, or any other object, by using the hex(id()) function
+
+The python memory manager uses reference counting to decide when to garbage collect
+    - We can use sys.getrefcount(var) to get the count of references to a variable in memory.
+        * This function creates a pointer though, so you need to decrement by 1 to get actual count
+    - We can also use ctypes.c_long.from_address(id(var)).value
+        * This does not create another pointer so it is accurate
+
+The concept of circular references is a common area of memory leaking in Python and other OO languages.
+    * Usually the garbage collector cleans this up. The only time it doesn't is when GC has been changed or configured
+      to work in a different way.
+        * You can interact with GC in python, and maybe other languages.
+
+A tuple is immutable, but it can contain mutable objects, ie a tuple that contains lists. The lists in the tuple are
+    nothing more than references to list objects in memory. Even if we append or delete elements of the lists within
+    the tuple, to pointers within the tuple have not changed.
+

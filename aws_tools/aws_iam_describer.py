@@ -2,6 +2,7 @@
 """Usage: python3 aws_iam_describer.py -h """
 import argparse
 import boto3
+import pprint
 from botocore.exceptions import ClientError
 from botocore.exceptions import OperationNotPageableError
 from tabulate import tabulate
@@ -38,8 +39,10 @@ def iam_describer():
     """This function handles finding and printing IAM """
     try:
         total_count = 0
-        output_list = []
-        headers = ["No.", "Role Name", "Resources", "Actions"]
+        output_list = list()
+        headers = ["No.", "Role Name", "Policies"]
+        # Use a pretty printer for printing list of lists
+        pp = pprint.PrettyPrinter()
 
         # The IAM boto3 client
         iam_client = session.client('iam', region_name=args.region)
@@ -53,8 +56,18 @@ def iam_describer():
         iam_filtered_iterator = iam_page_iterator.search(f"Roles[] | [?RoleLastUsed.LastUsedDate != ``]")
 
         for iam in iam_filtered_iterator:
+            iam_role_name = iam['RoleName']
+            iam_role_policies = list()
+            # Get the list or resources policies, if any
+            attached_response = iam_client.list_attached_role_policies(RoleName=iam_role_name)
+            # Get the inline role policies, if any
+            inline_response = iam_client.list_role_policies(RoleName=iam_role_name)
+            for attached_role in attached_response['AttachedPolicies']:
+                iam_role_policies.append(attached_role['PolicyName'])
+            if inline_response['PolicyNames']:
+                iam_role_policies.append(inline_response['PolicyNames'])
             total_count += 1
-            output_list.append([total_count, iam['RoleName'], 'IDK', ''])
+            output_list.append([total_count, iam_role_name, pp.pformat(iam_role_policies)])
 
         print(f"Total IAM Roles: {total_count}")
 
@@ -62,7 +75,7 @@ def iam_describer():
         if args.output:
             # List the AutoScaling Groups that actually scale
             print("***************************************************************************************************")
-            print(tabulate(output_list, headers))
+            print(tabulate(output_list, headers, tablefmt="grid"))
             if total_count == 0:
                 print("NONE!")
     except ClientError as ce:
