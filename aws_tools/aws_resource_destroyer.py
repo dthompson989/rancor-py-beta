@@ -2,13 +2,18 @@
 """Usage: python3 aws_resource_destroyer.py -h """
 import argparse
 import boto3
-from botocore.exceptions import ClientError
 import pprint
+from botocore.exceptions import ClientError
 
+# The list of acceptable services
+service_list = ['ec2', 'lambda', 'cloudformation', 'rds']
 # Parser for command line arguments
 parser = argparse.ArgumentParser(prog="python3 aws_resource_destroyer.py",
                                  description="This is a script that will delete an AWS resource in the provided "
-                                             "account, region, and service.")
+                                             "account, region, and service. Currently, the only services supported "
+                                             "are ec2, lambda, and cloudformation, but more are on the way. "
+                                             "Alternatively you can clone and modify the source code to suit your "
+                                             "needs. For ec2, you can provide a comma separated list")
 # Add parser arguments
 parser.add_argument("-p",
                     "--profile",
@@ -24,6 +29,7 @@ parser.add_argument("-s",
                     "--service",
                     dest="service",
                     required=True,
+                    choices=service_list,
                     help="REQUIRED. The AWS service you are deleting from. Example: ec2")
 parser.add_argument("-r",
                     "--region",
@@ -48,8 +54,6 @@ if args.debug:
 session = boto3.Session(profile_name=args.profile)
 # The Boto3 client
 client = session.client(args.service, region_name=args.region)
-# The list of acceptable services
-service_list = ['ec2', 'lambda']
 
 
 def destroyer(checker=True):
@@ -60,9 +64,21 @@ def destroyer(checker=True):
             response = client.terminate_instances(InstanceIds=[args.resource], DryRun=checker)
         elif args.service == 'lambda':
             if checker:
-                client.get_function(FunctionName=args.resource)
+                response = client.get_function(FunctionName=args.resource)
             else:
                 response = client.delete_function(FunctionName=args.resource)
+        elif args.service == 'rds':
+            if checker:
+                response = client.describe_db_instances(DBInstanceIdentifier=args.resource)
+            else:
+                response = client.delete_db_instance(DBInstanceIdentifier=args.resource,
+                                                     SkipFinalSnapshot=False,
+                                                     DeleteAutomatedBackups=False)
+        elif args.service == 'cloudformation':
+            if checker:
+                response = client.describe_stacks(StackName=args.resource)
+            else:
+                response = client.delete_stack(StackName=args.resource)
         else:
             return False
 
@@ -71,6 +87,8 @@ def destroyer(checker=True):
         if response:
             return True
     except ClientError as ce:
+        # During an ec2 dry run operation, the response is actually a thrown error. A success will have both
+        # of the below key words in the error message
         go_list = ["DryRunOperation", "succeeded"]
         if all(i in str(ce) for i in go_list):
             if args.debug:
@@ -98,7 +116,7 @@ if __name__ == '__main__':
             print(f"WARNING!!! THIS IS A PRODUCTION ENVIRONMENT!\n")
         proceed = input(f"You are about to delete/terminate live AWS resources . . . \n"
                         f"ARE YOU SURE YOU WANT TO CONTINUE? (Y/n) ")
-        if proceed == 'Y' or proceed == 'y':
+        if proceed.upper() == 'Y':
             is_destroyed = destroyer(False)
             if is_destroyed:
                 print("All done! Have a nice day.")
