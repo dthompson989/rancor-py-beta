@@ -1,4 +1,4 @@
-#!usr/bin/python
+#!usr/bin/python3.7
 import boto3
 import requests
 import json

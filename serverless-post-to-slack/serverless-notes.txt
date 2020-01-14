@@ -1,0 +1,8 @@
+First thing to do is either install or upgrade:
+
+install: sudo npm install -g serverless
+update: sudo npm i -g serverless
+
+Then, run serverless command to begin a project
+
+Finally, to deploy application run serverless deploy --verbose

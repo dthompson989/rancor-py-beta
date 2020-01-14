@@ -145,3 +145,9 @@ terraform-notes.txt
 # ignore any xquery
 /xqy
 *.xqy
+
+# ignore data files
+.data
+
+# ignore certain python files
+auto_asg.py

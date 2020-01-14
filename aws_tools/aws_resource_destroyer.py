@@ -42,7 +42,7 @@ parser.add_argument("-d",
                     dest="debug",
                     action="store_true",
                     default=False,
-                    help="The AWS region to check. Default is us-east-1")
+                    help="Turn on debugging, Default is False")
 # TODO: Change this to accept a single instance or a list to delete.
 # Parse the arguments
 args = parser.parse_args()

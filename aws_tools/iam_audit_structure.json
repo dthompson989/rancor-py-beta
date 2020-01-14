@@ -1,0 +1,29 @@
+{
+  "Roles": [
+    {
+      "RoleName": "string",
+      "Policies": [
+        {
+          "PolicyName": "string",
+          "Permissions": {
+
+          }
+        }
+      ]
+    },
+    {
+      "RoleName": "2269-dev-searchplatform-node-role",
+      "Policies": [
+        {
+          "PolicyName": "AmazonEKSWorkerNodePolicy",
+          "Permissions": {
+
+          }
+        },
+        {
+
+        }
+      ]
+    }
+  ]
+}
