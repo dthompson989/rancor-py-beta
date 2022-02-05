@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  BucketName:
+    Description: The S3 bucket name
+    Type: String
+    Default: "2516-sre-tooling-aws-hamr-ops-prod"
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - Key: "AssetID"
+          Value: "2516"
+        - Key: "AssetAreaName"
+          Value: "sre-tooling"
+        - Key: "AssetName"
+          Value: "sre-ec2-security-auditor"

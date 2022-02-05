@@ -6,3 +6,6 @@ update: sudo npm i -g serverless
 Then, run serverless command to begin a project
 
 Finally, to deploy application run serverless deploy --verbose
+
+*** To DELETE a Serverless resource/stack run:
+serverless remove --stage *Stage* --region *Region*

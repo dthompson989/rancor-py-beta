@@ -2,4 +2,6 @@
 
 ### Requirements to push code:
 
-1: Bandit has been run
+1: Ensure Bandit has been run (Python)
+  
+``` $ bandit -v -r /directory ```

@@ -1,0 +1,5 @@
+{
+  "method": "serverless",
+  "language": "python",
+  "source_file": "handler.py"
+}

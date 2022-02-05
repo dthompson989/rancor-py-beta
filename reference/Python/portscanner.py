@@ -5,7 +5,7 @@ import sys
 import datetime
 
 if __name__ == '__main__':
-	subprocess.call('clear', shell = True)
+	subprocess.call('clear', shell=True)
 
 	remoteServerIP = input('IP to Scan: ')
 
@@ -13,7 +13,7 @@ if __name__ == '__main__':
 	print('Scanning remote host ', remoteServerIP)
 	print('-' * 60)
 
-	t1 = datetime.now()
+	t1 = datetime.datetime.now()
 
 	try:
 		for port in range(1, 1025):
@@ -32,7 +32,7 @@ if __name__ == '__main__':
 		print('Could not connect to server')
 		sys.exit()
 
-	t2 = datetime.now()
+	t2 = datetime.datetime.now()
 
 	total = t2 - t1
 

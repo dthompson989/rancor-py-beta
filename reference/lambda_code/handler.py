@@ -57,7 +57,7 @@ def get_token(testing=None):
     trigger_id = "782c648d-2e53-4f72-9ba7-1095a6318eb3"
     username = "NLN_SRE_API_User"
     password = "NLNSRE"
-    # All ^ is in SSM now
+    # All ^ is in Secrets Manager now
     grant_type = "password"
     auth_dict = {'token': 'Bad Token',
                  'refresh_token': 'None',

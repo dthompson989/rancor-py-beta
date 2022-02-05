@@ -1,5 +1,5 @@
 #!usr/bin/python3.7
-"""Usage: python3 aws_iam_auditor.py -h """
+"""Usage: python3 aws_iam_auditor.py -h"""
 import argparse
 import boto3
 import pprint
@@ -121,8 +121,8 @@ def iam_auditor():
     """This function handles printing IAM roles and associated policy details"""
     try:
         output_list = list()
-        output_dict = dict()
-        headers = ["Role", "Policy Details (What CAN Be Accessed)", "API Activity (What's ACTUALLY Being Accessed)"]
+        print_list = list()
+        headers = ["Role", "Policy Details (What CAN Be Accessed)"]
         # The config for the paginator, limit to only 10 results unless in verbose mode
         pagination_config = {'PageSize': 100} if args.verbose else {'PageSize': 10, 'MaxItems': 10}
         # Use a paginator since the AWS API defaults results to 50, with a max of 100
@@ -133,26 +133,29 @@ def iam_auditor():
         iam_filtered_iterator = iam_page_iterator.search(f"Roles[] | [?RoleLastUsed.LastUsedDate != ``]")
 
         for iam_role in iam_filtered_iterator:
+            output_dict = dict()
             iam_role_name = iam_role['RoleName']
             iam_role_policies = get_policy_details(iam_role_name)
             # DEBUGGING
             if args.debug:
                 pp.pprint({"IAM Role Name": iam_role_name, "iam_role_policies": iam_role_policies})
 
-            # Add the IAM Role to the output list
-            output_list.append([iam_role_name, pp.pformat(iam_role_policies), ""])
             # Also add the IAM Role to the output dictionary
-            output_dict[iam_role_name] = iam_role_policies
+            output_dict['RoleName'] = iam_role_name
+            output_dict['Policies'] = iam_role_policies
+            # Add the IAM Role to the output list
+            output_list.append(output_dict)
+            print_list.append([iam_role_name, pp.pformat(iam_role_policies)])
 
         # Just for the hell of it, save the results in a json file
         with open('iam_audit_results.json', 'w') as file_handler:
-            json.dump(output_dict, file_handler)
+            json.dump(output_list, file_handler)
 
         # If not in debug mode print the IAM audit results
         if not args.debug:
             print("\n*************************************************************************************************")
-            print(tabulate(output_list, headers, tablefmt="grid"))
-            if not output_list:
+            print(tabulate(print_list, headers, tablefmt="grid"))
+            if not print_list:
                 print("NO AWS IAM ROLES WERE FOUND!")
     except ClientError as ce:
         print(f"ERROR! ClientError: {ce}")

@@ -1,6 +1,6 @@
 #!usr/bin/python
-"""A Lambda function that receives events from AWS Services, Logs the event (in some way),
-   and sends a notification to slack. Built using Serverless. Currently receives events from S3 and SNS"""
+""" A Lambda function that receives events from AWS Services, Logs the event, and sends a notification to slack.
+    Built using Serverless. Currently receives events from S3, SNS, & Lambda"""
 import os
 import requests
 from requests.exceptions import HTTPError
@@ -19,14 +19,21 @@ def post_to_slack(event, context):
         subject = 'None'
         detail = 'None'
 
+        # Event from S3
         if 'eventSource' in data['Records'][0]:
             source = data['Records'][0]['eventSource']
             subject = data['Records'][0]['eventName']
             detail = data['Records'][0]['s3']['object']['key']
+        # Event from SNS
         elif 'EventSource' in data['Records'][0]:
             source = data['Records'][0]['EventSource']
             subject = data['Records'][0]['Sns']['Subject']
             detail = data['Records'][0]['Sns']['Message']
+        # Event from another Lambda Function
+        elif 'LambdaEvent' in data['Records'][0]:
+            source = data['Records'][0]['EventSource']
+            subject = data['Records'][0]['Subject']
+            detail = data['Records'][0]['Message']
 
         # If the event that triggered this Lambda, for some reason has not been defined, I still want to know.
         slack_message = "From {} {} {}".format(source, subject, detail)

@@ -1,26 +1,48 @@
 #!usr/bin/python3.7
-"""A Python function that zips up a directory or file, and saves the output in the
-   same directory/parent directory. Used primarily with terraform-lambda/ """
+"""Usage: python3 file-zip.py -h"""
+import argparse
 import shutil
 from pathlib import Path
+# Parser for command line arguments
+parser = argparse.ArgumentParser(prog="python3 file-zip.py",
+                                 description="This is a tool for zipping up a directory or file. The output is a "
+                                             "zipped directory, subdirectory, or file with the same name as the "
+                                             "input. Output is placed the same directory location as the input.")
+# Add parser arguments
+parser.add_argument("-i",
+                    "--input",
+                    dest="input_dir",
+                    required=True,
+                    help="REQUIRED. The directory or file you want to ZIP. HINT: Enter the relative path to the target.")
+parser.add_argument("-d",
+                    "--debug",
+                    dest="debug",
+                    action="store_true",
+                    default=False,
+                    help="If set, turns on debugging. The default is False")
+# Parse the arguments
+args = parser.parse_args()
+"""Example: python3 file-zip.py -i db-auditor-tool-terraform/terraform/db-security-and-compliance-tool/modules/main/lambda_payload -d"""
 
 
-def zip_dir(zip_input, zip_output):
+def zip_dir(zip_output):
     try:
-        shutil.make_archive(zip_output, 'zip', zip_input)
-        print("{} -> has been ZIPPED -> {}".format(zip_input, zip_output))
-    except shutil.Error as e:
-        print("There was an critical error! ZipUtilError: {}".format(e))
-    except TypeError as e:
-        print("There was an non-critical error! TypeError: {}".format(e))
-    except FileNotFoundError as e:
-        print("There was an critical error! FileNotFoundError: {}".format(e))
+        shutil.make_archive(zip_output, 'zip', args.input_dir)
+        print(f"{args.input_dir} -> has been ZIPPED -> {zip_output}")
+    except shutil.Error as se:
+        print(f"ERROR! There was an critical error! ZipUtilError: {se}")
+    except TypeError as te:
+        print(f"ERROR! There was an non-critical error! TypeError: {te}")
+    except FileNotFoundError as fnfe:
+        print(f"ERROR! There was a critical error! FileNotFoundError: {fnfe}")
     return
 
 
 if __name__ == '__main__':
-    """ Main Function. Example input: terraform-lambda/rancor-lambda-payload """
-    print("Hello! I will zip a directory or file for you and save a copy in the same parent directory")
-    input_dir = input("What is the directory or file you want to ZIP? ")
-    output_name = Path.joinpath(Path(input_dir).parent, Path(input_dir).anchor, Path(input_dir).resolve().stem)
-    zip_dir(input_dir, output_name)
+    """ Main Function """
+    output_name = Path.joinpath(Path(args.input_dir).parent,
+                                Path(args.input_dir).anchor,
+                                Path(args.input_dir).resolve().stem)
+    if args.debug:
+        print(f"__main__: output_name: {output_name} \n\t  input_dir: {args.input_dir}")
+    zip_dir(output_name)

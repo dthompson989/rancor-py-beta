@@ -136,6 +136,7 @@ node_modules/
 
 # Random docs
 terraform-notes.txt
+deploy.txt
 
 # ignore reference sub folder
 !reference/
@@ -151,3 +152,6 @@ terraform-notes.txt
 
 # ignore certain python files
 auto_asg.py
+
+# ignore pipeline script
+pipeline.sh
