@@ -44,5 +44,5 @@ if __name__ == '__main__':
                                 Path(args.input_dir).anchor,
                                 Path(args.input_dir).resolve().stem)
     if args.debug:
-        print(f"__main__: output_name: {output_name} \n\t  input_dir: {args.input_dir}")
+        print(f"DEBUG! __main__: output_name: {output_name} \n\t  input_dir: {args.input_dir}")
     zip_dir(output_name)

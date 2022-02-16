@@ -2,7 +2,7 @@
 resource "aws_cloudwatch_event_rule" "rancor-weekly-housekeeping-event" {
   name                = "rancor-weekly-housekeeping-event"
   description         = "Fires every Friday at 9AM"
-  schedule_expression = "cron(0 10 * * FRI)"
+  schedule_expression = "cron(0 9 ? * FRI *)"
   tags = {
     Name = var.lambda_function
     Type = "CloudWatch CRON Event"

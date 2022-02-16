@@ -134,9 +134,10 @@ node_modules/
 *.tfstate.backup
 *.tfstate.lock.info
 
-# Random docs
+# Random docs and files
 terraform-notes.txt
-deploy.txt
+deploy.json
+todo.py
 
 # ignore reference sub folder
 !reference/

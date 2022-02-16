@@ -1,9 +1,10 @@
 #!usr/bin/python3.7
 """ This Lambda is a housekeeping Lambda. It is in charge of checking for expiring certificates, and in the future,
     other things as well. """
-import boto3
-import logging
 import datetime
+import json
+import logging
+import boto3
 from botocore.exceptions import ClientError
 
 # Configure the logger
@@ -18,14 +19,15 @@ def post_to_slack(notification_list):
     """ This is a helper function that invokes the rancor-slack-dev-post-to-slack Lambda function. """
     logger.debug(f"DEBUG! post_to_slack starting . . . ")
     try:
+        payload = {"Records": [{
+            "LambdaEvent": "Lambda",
+            "Subject": "Housekeeper Lambda Report",
+            "Message": ",".join(notification_list)
+        }]}
         lambda_client = boto3.client('lambda', region_name='us-east-1')
         lambda_response = lambda_client.invoke(FunctionName=POST_TO_SLACK_LAMBDA,
                                                InvocationType='Event',
-                                               Payload="{\"Records\": [{"
-                                                       "\"LambdaEvent\": \"True\","
-                                                       "\"EventSource\": \"Lambda\","
-                                                       "\"Subject\": \"Housekeeper Lambda Report\","
-                                                       "\"Message\": \"" + ','.join(notification_list) + "\"}]")
+                                               Payload=json.dumps(payload))
         if lambda_response['StatusCode'] == 202:
             logger.info(f"INFO! post_to_slack lambda_response SUCCESS: {lambda_response}")
         else:

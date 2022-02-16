@@ -1,5 +1,6 @@
 {
   "method": "terraform",
+  "version":  "1.0.4",
   "language": "python",
   "source_file": "payload"
 }

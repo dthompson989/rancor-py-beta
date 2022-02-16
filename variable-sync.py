@@ -16,14 +16,16 @@ NAMES = ["terraform.tfvars", "deploy.json"]
 # The AWS S3 bucket name to push to and pull from
 BUCKET_ROOT = "rancor-terraform-backend"
 # The only acceptable project argument names
-PROJECT_LIST = ['terraform-jenkins',
+PROJECT_LIST = ['serverless-post-to-slack',
+                'terraform-jenkins',
                 'terraform-lambda-ami',
                 'terraform-projects-reference',
                 'terraform-sns',
                 'terraform-jenkins-iam',
                 'terraform-auditor',
                 'terraform-housekeeper-lambda',
-                'pipeline.sh']
+                'pipeline.sh',
+                'website-deploy-tool.py']
 
 
 # Setup CLI commands and params
@@ -37,7 +39,7 @@ def cli():
 @click.argument('project', type=click.Choice(PROJECT_LIST))
 def push(project):
     """ Pushes a list of files to AWS S3 and replaces them. """
-    if project == 'pipeline.sh':
+    if project in ['pipeline.sh', 'website-deploy-tool.py']:
         print(f"Pushing {project} file to AWS S3")
         path = Path.cwd().joinpath(project)
         try:
@@ -51,22 +53,24 @@ def push(project):
     else:
         for name in NAMES:
             print(f"Pushing {project} {name} file to AWS S3")
-            path = Path.cwd().joinpath(project).joinpath(name)
             try:
+                path = Path.cwd().joinpath(project).joinpath(name)
                 response = S3.meta.client.upload_file(str(path),
                                                       BUCKET_ROOT,
                                                       str(project + '/' + name),
                                                       ExtraArgs={'ContentType': 'text/plain'})
                 print("Push complete: {}".format(response))
-            except ClientError as e:
-                print("ClientError! {}".format(e))
+            except ClientError as ce:
+                print(f"ClientError! {ce}")
+            except FileNotFoundError as fe:
+                print(f"FileNotFoundError {fe}")
 
 
 @cli.command('pull')
 @click.argument('project', type=click.Choice(PROJECT_LIST))
 def pull(project):
     """ Pulls a list of files from AWS S3 and replaces them locally. """
-    if project == 'pipeline.sh':
+    if project in ['pipeline.sh', 'website-deploy-tool.py']:
         print(f"Pulling {project} file from AWS S3")
         path = Path.cwd().joinpath(project)
         try:
@@ -90,4 +94,10 @@ def pull(project):
 
 
 if __name__ == '__main__':
+    """ The Main Handler - Used to perform a push or pull of a list of files.
+    
+        :return: None
+        Author: David Thompson
+        Version: 1.0
+    """
     cli()
