@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&amp;A - My Site</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">My Site</a></div>
+      <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="qa.html" aria-current="page">Q&amp;A</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">More</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Link One</a></li>
+              <li><a href="#">Link Two</a></li>
+              <li><a href="#">Link Three</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Questions &amp; Answers</h1>
+    <p>Find answers to common questions below. Click a question to expand.</p>
+
+    <details>
+      <summary>What is this site about?</summary>
+      <p>Replace this with your answer. This is placeholder content.</p>
+    </details>
+
+    <details>
+      <summary>How do I get started?</summary>
+      <p>Replace this with instructions or guidance for your visitors.</p>
+    </details>
+
+    <details>
+      <summary>Who can I contact for help?</summary>
+      <p>Add contact information or support links here.</p>
+    </details>
+
+    <details>
+      <summary>Where can I find more resources?</summary>
+      <p>Link to documentation, guides, or external resources here.</p>
+    </details>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 My Site. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </footer>
+</body>
+</html>
