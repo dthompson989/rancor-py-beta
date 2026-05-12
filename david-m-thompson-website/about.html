@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - My Site</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">My Site</a></div>
+      <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
+          <li><a href="qa.html">Q&amp;A</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">More</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Link One</a></li>
+              <li><a href="#">Link Two</a></li>
+              <li><a href="#">Link Three</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>About Me</h1>
+    <div class="card">
+      <p>Hello! This is the about page. Replace this text with information about yourself or your project.</p>
+      <h2>Background</h2>
+      <p>Add your background, experience, or story here.</p>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 My Site. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </footer>
+</body>
+</html>
